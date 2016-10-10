@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_initial_screen"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="kdas.i_nterface.locusreverb.InitialScreen">
+
+    <!--<android.support.design.widget.FloatingActionButton-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:clickable="true"-->
+        <!--app:backgroundTint="@color/transparent"-->
+        <!--app:fabSize="normal"-->
+        <!--app:srcCompat="@drawable/init"-->
+        <!--android:layout_centerVertical="true"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:id="@+id/floatingActionButton" />-->
+
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/a_13"
+        android:background="@color/transparent"
+        android:layout_gravity="center"
+        android:id="@+id/imageButton2"
+        android:visibility="invisible" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/a_14"
+        android:background="@color/transparent"
+        android:layout_gravity="center"
+        android:id="@+id/imageButton3"
+        android:visibility="invisible" />
+
+    <!--<com.mikhaellopez.circularimageview.CircularImageView-->
+        <!--android:layout_width="100dp"-->
+        <!--android:layout_height="100dp"-->
+        <!--android:src="@mipmap/ic_launcher"-->
+        <!--app:civ_border="true"-->
+        <!--app:civ_border_color="#000000"-->
+        <!--app:civ_border_width="2dp" />-->
+
+    <!--<android.support.v7.widget.CardView-->
+        <!--android:layout_width="100dp"-->
+        <!--android:layout_height="100dp"-->
+        <!--android:id="@+id/i3"-->
+        <!--app:cardCornerRadius="8dp"-->
+        <!--app:cardElevation="12dp"-->
+        <!--android:layout_gravity="center"-->
+        <!--android:visibility="visible">-->
+
+        <!--<RelativeLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:background="@color/blue_white"-->
+            <!--android:layout_marginBottom="40dp">-->
+
+            <!--<ImageView-->
+                <!--android:layout_width="100dp"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_centerHorizontal="true"-->
+                <!--android:paddingBottom="10dp"-->
+                <!--android:paddingTop="10dp"-->
+                <!--android:src="@drawable/a_13"/>-->
+
+        <!--</RelativeLayout>-->
+
+    <!--</android.support.v7.widget.CardView>-->
+
+    <!--<android.support.v7.widget.CardView-->
+        <!--android:layout_width="140dp"-->
+        <!--android:layout_height="160dp"-->
+        <!--android:id="@+id/i4"-->
+        <!--app:cardCornerRadius="8dp"-->
+        <!--app:cardElevation="12dp"-->
+        <!--android:layout_gravity="center"-->
+        <!--android:visibility="invisible">-->
+
+        <!--<RelativeLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:background="@color/some_teal2"-->
+            <!--android:layout_marginBottom="40dp">-->
+
+            <!--<ImageView-->
+                <!--android:layout_width="100dp"-->
+                <!--android:layout_height="140dp"-->
+                <!--android:layout_centerHorizontal="true"-->
+                <!--android:paddingBottom="10dp"-->
+                <!--android:paddingTop="10dp"-->
+                <!--android:src="@drawable/ping_route"/>-->
+
+        <!--</RelativeLayout>-->
+
+    <!--</android.support.v7.widget.CardView>-->
+
+    <ImageButton
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="@color/transparent"
+        app:srcCompat="@drawable/init"
+        android:layout_gravity="center"
+        android:id="@+id/imageButton"
+        android:scaleType="fitXY"
+        android:maxHeight="100dp"
+        android:maxWidth="100dp"
+        android:visibility="visible"
+        android:elevation="14dp" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/a_11"
+        android:background="@color/transparent"
+        android:id="@+id/i3"
+        android:visibility="invisible"
+        android:layout_gravity="center" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/transparent"
+        app:srcCompat="@drawable/ping_route"
+        android:id="@+id/i4"
+        android:visibility="invisible"
+        android:layout_gravity="center" />
+
+
+</FrameLayout>
+
