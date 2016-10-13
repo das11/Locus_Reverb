@@ -2,9 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="kdas.i_nterface.locusreverb">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -20,7 +20,11 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".testService" android:enabled="true"/>
+        <service
+            android:name=".testService"
+            android:enabled="true" />
+
+        <activity android:name=".Init"></activity>
     </application>
 
 </manifest>

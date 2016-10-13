@@ -1,6 +1,8 @@
 package kdas.i_nterface.locusreverb;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -21,7 +23,7 @@ import com.transitionseverywhere.TransitionManager;
 
 public class InitialScreen extends AppCompatActivity {
 
-    ImageButton init, i1, i2, i3, i4;
+    ImageButton center, i1, i2, i3, i4;
 
 
     @Override
@@ -31,13 +33,13 @@ public class InitialScreen extends AppCompatActivity {
 
         final ViewGroup transitionsContainer = (ViewGroup)findViewById(R.id.activity_initial_screen);
 
-        init = (ImageButton)findViewById(R.id.imageButton);
+        center = (ImageButton)findViewById(R.id.imageButton);
         i1 = (ImageButton)findViewById(R.id.imageButton2);
         i2 = (ImageButton)findViewById(R.id.imageButton3);
         i3 = (ImageButton)findViewById(R.id.i3);
         i4 = (ImageButton)findViewById(R.id.i4);
 
-        init.setOnClickListener(new View.OnClickListener() {
+        center.setOnClickListener(new View.OnClickListener() {
 
             boolean mToRightAnimation;
 
@@ -56,7 +58,7 @@ public class InitialScreen extends AppCompatActivity {
                 i4.setVisibility(View.VISIBLE);
 
                 mToRightAnimation = !mToRightAnimation;
-                FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) init.getLayoutParams();
+                FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) center.getLayoutParams();
                 params.gravity = mToRightAnimation ? (Gravity.CENTER | Gravity.BOTTOM) :
                         (Gravity.CENTER);
 
@@ -118,7 +120,7 @@ public class InitialScreen extends AppCompatActivity {
 
 
 
-                init.setLayoutParams(params);
+                center.setLayoutParams(params);
                 i1.setLayoutParams(params1);
                 i2.setLayoutParams(params2);
                 i3.setLayoutParams(params3);
@@ -146,6 +148,40 @@ public class InitialScreen extends AppCompatActivity {
         });
 
 
+
+
+    }
+
+    private class do_stuff extends AsyncTask<String, Void, String>{
+
+        @Override
+        protected String doInBackground(String... strings) {
+            init();
+
+            return null;
+        }
+    }
+
+    public void init(){
+        boolean init = false;
+
+        SharedPreferences pref = getSharedPreferences("PREFS", MODE_PRIVATE);
+        init = pref.getBoolean("Init", init);
+
+        if (!init){
+            Intent i = new Intent(InitialScreen.this, Init.class);
+            startActivity(i);
+        }
+
+//        ScheduledExecutorService scheduleTaskExecutor = Executors.newScheduledThreadPool(5);
+//        scheduleTaskExecutor.scheduleAtFixedRate(new Runnable() {
+//            public void run() {
+//                if (!thread){
+//                    check_notif();
+//                    Log.d("Keep", "running");
+//                }
+//            }
+//        }, 0, 10, TimeUnit.SECONDS);
 
 
     }

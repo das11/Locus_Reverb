@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Locus Reverb</string>
+    <string name="email">Email</string>
+    <string name="pass">Password</string>
 </resources>

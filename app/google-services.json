@@ -1,96 +1,21 @@
 {
   "project_info": {
-    "project_number": "332856705924",
-    "firebase_url": "https://wifiap-1361.firebaseio.com",
-    "project_id": "wifiap-1361",
-    "storage_bucket": "wifiap-1361.appspot.com"
+    "project_number": "365729543628",
+    "firebase_url": "https://locusreverb.firebaseio.com",
+    "project_id": "locusreverb",
+    "storage_bucket": "locusreverb.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:332856705924:android:0d7d8af4ab2b8438",
-        "android_client_info": {
-          "package_name": "com.example.lordden.myapplication"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "332856705924-un30hb9ghn3omieh54ska8r73qij52ii.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyCNY7RHgHCdI6WyfaZd3ezd2_0X-_FzWvE"
-        }
-      ],
-      "services": {
-        "analytics_service": {
-          "status": 1
-        },
-        "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
-        },
-        "ads_service": {
-          "status": 2
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:332856705924:android:83ea4ae9c21a56f9",
-        "android_client_info": {
-          "package_name": "kdas.i_nterface.uitest_2"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "332856705924-ceso8s9isjl9e5rvthgunb0f4ak53clf.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "kdas.i_nterface.uitest_2",
-            "certificate_hash": "541502DDE1156BAE9C3CEE945AF3F7EDC91CA51A"
-          }
-        },
-        {
-          "client_id": "332856705924-un30hb9ghn3omieh54ska8r73qij52ii.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyCNY7RHgHCdI6WyfaZd3ezd2_0X-_FzWvE"
-        }
-      ],
-      "services": {
-        "analytics_service": {
-          "status": 1
-        },
-        "appinvite_service": {
-          "status": 2,
-          "other_platform_oauth_client": [
-            {
-              "client_id": "332856705924-un30hb9ghn3omieh54ska8r73qij52ii.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        },
-        "ads_service": {
-          "status": 2
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:332856705924:android:28cdc72e093e16b1",
+        "mobilesdk_app_id": "1:365729543628:android:28cdc72e093e16b1",
         "android_client_info": {
           "package_name": "kdas.i_nterface.locusreverb"
         }
       },
       "oauth_client": [
         {
-          "client_id": "332856705924-51dijlh70hjqo5a6jgmsd1tg5c6c6f0p.apps.googleusercontent.com",
+          "client_id": "365729543628-egolkqnk8ah1udv900esdutr680enf94.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "kdas.i_nterface.locusreverb",
@@ -98,13 +23,13 @@
           }
         },
         {
-          "client_id": "332856705924-un30hb9ghn3omieh54ska8r73qij52ii.apps.googleusercontent.com",
+          "client_id": "365729543628-01e2jlagf61tbmlkjfg6a7odv3uc1t7u.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCNY7RHgHCdI6WyfaZd3ezd2_0X-_FzWvE"
+          "current_key": "AIzaSyD02GeAYkrwmRcXzT8euMsaFcvHRh-mEcY"
         }
       ],
       "services": {
@@ -115,7 +40,7 @@
           "status": 2,
           "other_platform_oauth_client": [
             {
-              "client_id": "332856705924-un30hb9ghn3omieh54ska8r73qij52ii.apps.googleusercontent.com",
+              "client_id": "365729543628-01e2jlagf61tbmlkjfg6a7odv3uc1t7u.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
