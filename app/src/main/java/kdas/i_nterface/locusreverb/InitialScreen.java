@@ -85,7 +85,7 @@ public class InitialScreen extends AppCompatActivity {
                     i2.postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            i1.setVisibility(View.INVISIBLE);
+                            i2.setVisibility(View.INVISIBLE);
                         }
                     }, 500);
                 }
@@ -147,7 +147,7 @@ public class InitialScreen extends AppCompatActivity {
             }
         });
 
-
+        new do_stuff().execute("");
 
 
     }
@@ -166,7 +166,8 @@ public class InitialScreen extends AppCompatActivity {
         boolean init = false;
 
         SharedPreferences pref = getSharedPreferences("PREFS", MODE_PRIVATE);
-        init = pref.getBoolean("Init", init);
+        init = pref.getBoolean("Initialized", init);
+        Log.d("home init", init + "");
 
         if (!init){
             Intent i = new Intent(InitialScreen.this, Init.class);

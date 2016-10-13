@@ -84,8 +84,21 @@
     <is.arontibo.library.ElasticDownloadView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/elasticProgress"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"/>
+        android:layout_centerVertical="true"
+        android:id="@+id/elasticProgress">
+
+    </is.arontibo.library.ElasticDownloadView>
+
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        app:fabSize="normal"
+        app:srcCompat="@drawable/home"
+        android:id="@+id/floatingActionButton"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="21dp" />
 
 </RelativeLayout>
