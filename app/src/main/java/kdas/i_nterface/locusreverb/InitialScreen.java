@@ -12,11 +12,6 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.transitionseverywhere.ArcMotion;
 import com.transitionseverywhere.ChangeBounds;
 import com.transitionseverywhere.TransitionManager;
@@ -24,7 +19,6 @@ import com.transitionseverywhere.TransitionManager;
 public class InitialScreen extends AppCompatActivity {
 
     ImageButton center, i1, i2, i3, i4;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,31 +113,11 @@ public class InitialScreen extends AppCompatActivity {
                 }
 
 
-
                 center.setLayoutParams(params);
                 i1.setLayoutParams(params1);
                 i2.setLayoutParams(params2);
                 i3.setLayoutParams(params3);
                 i4.setLayoutParams(params4);
-            }
-        });
-
-        Intent service = new Intent(this, testService.class);
-        startService(service);
-
-        DatabaseReference dbREF = FirebaseDatabase.getInstance().getReference();
-
-        DatabaseReference ref = dbREF.child("test/test_");
-        ref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                String str = dataSnapshot.getValue(String.class);
-                Log.d("STRING", "\n\n" + str);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
             }
         });
 
@@ -156,11 +130,19 @@ public class InitialScreen extends AppCompatActivity {
 
         @Override
         protected String doInBackground(String... strings) {
+//            start_service();
             init();
 
             return null;
         }
     }
+
+    public void start_service(){
+        Intent service = new Intent(this, testService.class);
+        startService(service);
+    }
+
+
 
     public void init(){
         boolean init = false;
@@ -169,10 +151,13 @@ public class InitialScreen extends AppCompatActivity {
         init = pref.getBoolean("Initialized", init);
         Log.d("home init", init + "");
 
-        if (!init){
-            Intent i = new Intent(InitialScreen.this, Init.class);
+//        if (!init){
+//            Intent i = new Intent(InitialScreen.this, Init.class);
+//            startActivity(i);
+//        }
+
+        Intent i = new Intent(InitialScreen.this, Init.class);
             startActivity(i);
-        }
 
 //        ScheduledExecutorService scheduleTaskExecutor = Executors.newScheduledThreadPool(5);
 //        scheduleTaskExecutor.scheduleAtFixedRate(new Runnable() {

@@ -20,10 +20,14 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import is.arontibo.library.ElasticDownloadView;
 
 public class Init extends AppCompatActivity {
+
+    DatabaseReference ROOT;
 
     EditText initEmail, initPass;
     FloatingActionButton done, backhome;
@@ -56,13 +60,7 @@ public class Init extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                background.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.elasticbackground));
 
-                backhome.setVisibility(View.VISIBLE);
-                card.setVisibility(View.INVISIBLE);
-                elasticDownloadView.setVisibility(View.VISIBLE);
-                elasticDownloadView.startIntro();
-                elasticDownloadView.setProgress(30);
                 String email, pass;
 
                 email = initEmail.getText().toString().trim();
@@ -78,16 +76,22 @@ public class Init extends AppCompatActivity {
                     elasticDownloadView.fail();
                 }
                 else {
+                    background.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.elasticbackground));
+
+                    backhome.setVisibility(View.VISIBLE);
+                    card.setVisibility(View.INVISIBLE);
+                    elasticDownloadView.setVisibility(View.VISIBLE);
+                    elasticDownloadView.startIntro();
+                    elasticDownloadView.setProgress(30);
 
                     fAuth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener(Init.this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
-                            Log.d("Done ", "GO HOME");
-
                             if (!task.isSuccessful()) {
                                 elasticDownloadView.fail();
                                 Toast.makeText(Init.this, "Authentication failed." + task.getException(), Toast.LENGTH_SHORT).show();
                             } else {
+                                Log.d("Done ", "GO HOME");
 
                                 sharedPreferences = getSharedPreferences("PREFS", MODE_PRIVATE);
                                 SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -99,6 +103,8 @@ public class Init extends AppCompatActivity {
                                 editor.putString("uid", uid);
                                 editor.apply();
                                 editor.commit();
+
+                                inflate_firebase();
 
                                 Log.d("UID", uid + "");
                                 elasticDownloadView.success();
@@ -118,5 +124,63 @@ public class Init extends AppCompatActivity {
                 startActivity(i);
             }
         });
+    }
+
+    public void inflate_firebase(){
+        ROOT = FirebaseDatabase.getInstance().getReference();
+
+        String uid;
+        SharedPreferences pref = getSharedPreferences("PREFS",MODE_PRIVATE);
+        uid = pref.getString("uid", "");
+
+        DatabaseReference user_node = ROOT.child(uid);
+        DatabaseReference data = user_node.child("data");
+        DatabaseReference location = user_node.child("location");
+        DatabaseReference notif = user_node.child("notif");
+        DatabaseReference pinged = user_node.child("pinged");
+        DatabaseReference pinged_by = user_node.child("pinged_by");
+
+        location.setValue("null");
+        notif.setValue("null");
+        pinged.setValue("null");
+        pinged_by.setValue("null");
+
+        DatabaseReference days;
+        for(int i = 1; i < 366; ++i){
+            days = data.child(i + "");
+            DatabaseReference points_f = days.child("points_f");
+            DatabaseReference points_p = days.child("points_p");
+
+            points_f.setValue(1);
+            points_p.setValue(1);
+
+            DatabaseReference points_data = days.child("points_data");
+            DatabaseReference friends = points_data.child("friends");
+            DatabaseReference professional = points_data.child("professional");
+
+            DatabaseReference nested_node_f = friends.child(0 + "");
+            DatabaseReference nested_node_p = professional.child(0 + "");
+
+            for (int j = 0; j < 2; ++j){
+                DatabaseReference str;
+                if (j == 0)
+                    str = nested_node_f;
+                else
+                    str = nested_node_p;
+
+                DatabaseReference point_uid = str.child("uid");
+                DatabaseReference start = str.child("start");
+                DatabaseReference end = str.child("end");
+                DatabaseReference point_location = str.child("location");
+                DatabaseReference notes = str.child("notes");
+
+                point_uid.setValue("null");
+                start.setValue("null");
+                end.setValue("null");
+                point_location.setValue("null");
+                notes.setValue("null");
+            }
+        }
+
     }
 }
