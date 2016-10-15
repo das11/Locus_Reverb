@@ -23,11 +23,12 @@
         <service
             android:name=".testService"
             android:enabled="true" />
+        <service
+            android:name=".notifService"
+            android:enabled="true" />
 
-        <service android:name=".notifService"
-            android:enabled="true"/>
-
-        <activity android:name=".Init"></activity>
+        <activity android:name=".Init" />
+        <activity android:name=".Memories"></activity>
     </application>
 
 </manifest>

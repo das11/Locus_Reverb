@@ -120,6 +120,13 @@ public class InitialScreen extends AppCompatActivity {
                 i4.setLayoutParams(params4);
             }
         });
+        i1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(InitialScreen.this, Memories.class));
+                Log.d("CLICKED", "CLICK");
+            }
+        });
 
         new do_stuff().execute("");
 
@@ -132,7 +139,7 @@ public class InitialScreen extends AppCompatActivity {
         protected String doInBackground(String... strings) {
 //            start_service();
             start_notif_service();
-            init();
+            //init();
 
             return null;
         }
