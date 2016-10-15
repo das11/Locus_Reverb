@@ -39,6 +39,8 @@ dependencies {
     compile 'com.google.firebase:firebase-auth:9.6.1'
 
     compile 'com.github.tibolte:elasticdownload:1.0.+'
+    compile 'com.github.halysongoncalves:pugnotification:1.8.1'
+
 
 
     testCompile 'junit:junit:4.12'

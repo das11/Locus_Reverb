@@ -131,6 +131,7 @@ public class InitialScreen extends AppCompatActivity {
         @Override
         protected String doInBackground(String... strings) {
 //            start_service();
+            start_notif_service();
             init();
 
             return null;
@@ -140,6 +141,11 @@ public class InitialScreen extends AppCompatActivity {
     public void start_service(){
         Intent service = new Intent(this, testService.class);
         startService(service);
+    }
+
+    public void start_notif_service(){
+        Intent notif_service = new Intent(this, notifService.class);
+        startService(notif_service);
     }
 
 

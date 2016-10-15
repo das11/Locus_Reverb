@@ -24,6 +24,9 @@
             android:name=".testService"
             android:enabled="true" />
 
+        <service android:name=".notifService"
+            android:enabled="true"/>
+
         <activity android:name=".Init"></activity>
     </application>
 
