@@ -36,12 +36,12 @@ import static android.content.Context.MODE_PRIVATE;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link testFrag2.OnFragmentInteractionListener} interface
+ * {@link Frag_professional.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link testFrag2#newInstance} factory method to
+ * Use the {@link Frag_professional#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class testFrag2 extends Fragment {
+public class Frag_professional extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -66,7 +66,7 @@ public class testFrag2 extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public testFrag2() {
+    public Frag_professional() {
         // Required empty public constructor
     }
 
@@ -76,11 +76,11 @@ public class testFrag2 extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment testFrag2.
+     * @return A new instance of fragment Frag_professional.
      */
     // TODO: Rename and change types and number of parameters
-    public static testFrag2 newInstance(String param1, String param2) {
-        testFrag2 fragment = new testFrag2();
+    public static Frag_professional newInstance(String param1, String param2) {
+        Frag_professional fragment = new Frag_professional();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);

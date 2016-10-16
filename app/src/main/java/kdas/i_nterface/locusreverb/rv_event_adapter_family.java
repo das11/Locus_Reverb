@@ -25,7 +25,7 @@ import java.util.GregorianCalendar;
 /**
  * Created by Interface on 18/08/16.
  */
-public class rv_event_adapter extends RecyclerView.Adapter<rv_event_adapter.ViewHolder>{
+public class rv_event_adapter_family extends RecyclerView.Adapter<rv_event_adapter_family.ViewHolder>{
 
     String furl, gist_note, user_root;
     DatabaseReference ROOT = FirebaseDatabase.getInstance().getReference();
@@ -69,9 +69,8 @@ public class rv_event_adapter extends RecyclerView.Adapter<rv_event_adapter.View
         int pos = getLayoutPosition();
         Toast.makeText(context, pos + "", Toast.LENGTH_SHORT).show();
 
-            Intent i = new Intent(context, Timeline.class);
+            Intent i = new Intent(context, InitialScreen.class);
             i.putExtra("day", pos + 1);
-            i.putExtra("cat", 1);
             context.startActivity(i);
 
     }
@@ -80,7 +79,7 @@ public class rv_event_adapter extends RecyclerView.Adapter<rv_event_adapter.View
     private java.util.List<events> mevents;
     private Context mcontext;
 
-    public rv_event_adapter(Context context, java.util.List<events> m_events){
+    public rv_event_adapter_family(Context context, java.util.List<events> m_events){
         mevents = m_events;
         mcontext = context;
     }
@@ -91,7 +90,7 @@ public class rv_event_adapter extends RecyclerView.Adapter<rv_event_adapter.View
 
 
     @Override
-    public rv_event_adapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public rv_event_adapter_family.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Context context = getContext();
 
         LayoutInflater inflator = LayoutInflater.from(context);
@@ -102,7 +101,7 @@ public class rv_event_adapter extends RecyclerView.Adapter<rv_event_adapter.View
     }
 
     @Override
-    public void onBindViewHolder(final rv_event_adapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(final rv_event_adapter_family.ViewHolder holder, int position) {
 
         events events_data = mevents.get(position);
         Log.d("day  :::::::: ", position + "");
@@ -179,7 +178,7 @@ public class rv_event_adapter extends RecyclerView.Adapter<rv_event_adapter.View
 //        furl = "https://wifiap-1361.firebaseio.com/" + uid + "/data/" + note_pos;
 //        Log.d("furl_note", furl);
 
-        note = ROOT.child(uid + "/data/" + note_pos + "/points_data/friends");
+        note = ROOT.child(uid + "/data/" + note_pos + "/points_data/professional");
         Log.d(note + "", "");
         note.addValueEventListener(new ValueEventListener() {
             @Override

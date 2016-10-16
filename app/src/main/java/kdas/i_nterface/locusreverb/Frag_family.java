@@ -36,16 +36,20 @@ import static android.content.Context.MODE_PRIVATE;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link testFrag.OnFragmentInteractionListener} interface
+ * {@link Frag_family.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link testFrag#newInstance} factory method to
+ * Use the {@link Frag_family#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class testFrag extends Fragment {
+public class Frag_family extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+
+    // TODO: Rename and change types of parameters
+    private String mParam1;
+    private String mParam2;
 
     TextView month_name;
     ImageView down;
@@ -54,19 +58,16 @@ public class testFrag extends Fragment {
     DatabaseReference ROOT = FirebaseDatabase.getInstance().getReference();
     DatabaseReference user;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
     String uid;
     List<String> count = new ArrayList<>();
     java.util.List<events> mevents = new ArrayList<>();
 
-    private OnFragmentInteractionListener mListener;
     RecyclerView recyclerView;
-    rv_event_adapter adapter;
+    rv_event_adapter_family adapter;
 
+    private OnFragmentInteractionListener mListener;
 
-    public testFrag() {
+    public Frag_family() {
         // Required empty public constructor
     }
 
@@ -76,11 +77,11 @@ public class testFrag extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment testFrag.
+     * @return A new instance of fragment Frag_family.
      */
     // TODO: Rename and change types and number of parameters
-    public static testFrag newInstance(String param1, String param2) {
-        testFrag fragment = new testFrag();
+    public static Frag_family newInstance(String param1, String param2) {
+        Frag_family fragment = new Frag_family();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -95,8 +96,6 @@ public class testFrag extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
-
     }
 
     public int getposition_from_time(Date date){
@@ -126,7 +125,7 @@ public class testFrag extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View baseView = inflater.inflate(R.layout.fragment_test, container, false);
+        View baseView = inflater.inflate(R.layout.fragment_frag_family, container, false);
 
         slide_down = AnimationUtils.loadAnimation(getContext(), R.anim.slide_down_calendar);
         slide_down_2 = AnimationUtils.loadAnimation(getContext(), R.anim.slide_down_calendar);
@@ -138,8 +137,8 @@ public class testFrag extends Fragment {
         SharedPreferences pref = getActivity().getSharedPreferences("PREFS", MODE_PRIVATE);
         uid = pref.getString("uid","");
 
-        recyclerView = (RecyclerView)baseView.findViewById(R.id.rv_schedule_f);
-        down = (ImageView)baseView.findViewById(R.id.down);
+        recyclerView = (RecyclerView)baseView.findViewById(R.id.rv_schedule_family);
+        down = (ImageView)baseView.findViewById(R.id.down_family);
         final com.github.sundeepk.compactcalendarview.CompactCalendarView month_view = (com.github.sundeepk.compactcalendarview.CompactCalendarView)baseView.findViewById(R.id.compactcalendar_view);
 
         for (int i = 0; i < 3; ++i){
@@ -151,7 +150,7 @@ public class testFrag extends Fragment {
         int furl_x = getposition_from_time(da);
         Log.d("REAL DAU", furl_x + "");
 
-        month_name = (TextView)baseView.findViewById(R.id.month_name);
+        month_name = (TextView)baseView.findViewById(R.id.month_name_family);
         Date temp_month = new Date();
         month_name.setText(android.text.format.DateFormat.format("MMM", temp_month).toString());
 
@@ -160,7 +159,7 @@ public class testFrag extends Fragment {
         for (int i = 0; i < 365; ++i){
             mevents.add(new events(count, 365));
         }
-        adapter = new rv_event_adapter(getContext(), mevents);
+        adapter = new rv_event_adapter_family(getContext(), mevents);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter.notifyDataSetChanged();
@@ -253,7 +252,6 @@ public class testFrag extends Fragment {
         //##################### initial offset
         ((LinearLayoutManager) recyclerView.getLayoutManager()).scrollToPositionWithOffset(adapter.return_present_pos(), 0);
 
-
         // Inflate the layout for this fragment
         return baseView;
     }
@@ -268,12 +266,6 @@ public class testFrag extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-//        if (context instanceof OnFragmentInteractionListener) {
-//            mListener = (OnFragmentInteractionListener) context;
-//        } else {
-//            throw new RuntimeException(context.toString()
-//                    + " must implement OnFragmentInteractionListener");
-//        }
     }
 
     @Override

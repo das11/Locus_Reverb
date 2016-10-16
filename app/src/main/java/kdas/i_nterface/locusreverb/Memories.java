@@ -27,7 +27,7 @@ public class Memories extends AppCompatActivity {
         //tabLayout.setupWithViewPager(vp);
 
         NavigationTabStrip ts = (NavigationTabStrip)findViewById(R.id.tab);
-        ts.setTitles("Friends", "Professional");
+        ts.setTitles("Friends", "Professional", "Family");
         ts.setTitleSize(25);
         ts.setViewPager(vp);
 
@@ -44,9 +44,11 @@ public class Memories extends AppCompatActivity {
         public Fragment getItem(int position) {
             switch (position) {
                 case 0 :
-                    return testFrag.newInstance("", "");
+                    return Frag_friends.newInstance("", "");
                 case 1 :
-                    return testFrag2.newInstance("", "");
+                    return Frag_professional.newInstance("", "");
+                case 2 :
+                    return Frag_professional.newInstance("","");
                 default  :
                     return null;
             }
@@ -54,7 +56,7 @@ public class Memories extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            return 2;
+            return 3;
         }
 
         @Override

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_timeline"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="kdas.i_nterface.locusreverb.Timeline">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffff">
+
+
+        <android.support.v7.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorAccent"
+            android:id="@+id/view" />
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/view"
+            android:src="@drawable/notif_large"
+            android:id="@+id/imageView3"
+            android:layout_marginBottom="60dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Developer's on a coffee break, be back soon !"
+            android:fontFamily="sans-serif-light"
+            android:textSize="22sp"
+            android:id="@+id/textView8"
+            android:layout_marginTop="46dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_alignTop="@+id/imageView3"
+            android:layout_centerHorizontal="true" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView7"
+            android:src="@drawable/notif_small"
+
+            android:layout_alignBottom="@+id/imageView3"
+            android:layout_centerHorizontal="true" />
+
+
+    </RelativeLayout>
+
+    <FrameLayout
+        android:id="@+id/bottom_sheet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:behavior_hideable="false"
+        app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
+
+        <include layout="@layout/bottom_sheet"/>
+
+    </FrameLayout>
+
+</android.support.design.widget.CoordinatorLayout>
