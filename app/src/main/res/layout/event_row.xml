@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    android:paddingTop="6dp"
+    android:paddingBottom="15dp"
+    android:paddingLeft="6dp"
+    android:paddingRight="6dp">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        card_view:cardUseCompatPadding="true"
+        card_view:cardElevation="5dp"
+        app:cardCornerRadius="8dp"
+        android:id="@+id/view3">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="10dp">
+
+
+            <com.mikhaellopez.circularimageview.CircularImageView
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:id="@+id/pro"
+                android:src="@drawable/summer"
+                app:civ_border_width="0dp"
+                app:civ_border_color="#FFFFFF"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true" />
+
+            <com.github.pavlospt.CircleView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:id="@+id/cir2"
+                app:cv_titleText=""
+                app:cv_subtitleText=""
+                app:cv_strokeColorValue="@color/some_accent"
+                app:cv_fillColor="#ffffff"
+                android:layout_alignTop="@+id/cir3"
+                android:layout_alignStart="@+id/mini_data_card"
+                android:visibility="invisible" />
+
+            <com.github.pavlospt.CircleView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:id="@+id/cir3"
+                app:cv_titleText=""
+                app:cv_subtitleText=""
+                app:cv_strokeColorValue="@color/some_accent"
+                app:cv_fillColor="#ffffff"
+                android:layout_alignTop="@+id/cir4"
+                android:layout_toEndOf="@+id/cir2"
+                android:visibility="invisible" />
+
+            <com.github.pavlospt.CircleView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:id="@+id/cir4"
+                app:cv_titleText=""
+                app:cv_subtitleText=""
+                app:cv_strokeColorValue="@color/some_accent"
+                app:cv_fillColor="#FFFFFF"
+                android:layout_below="@+id/imageView"
+                android:layout_alignStart="@+id/line"
+                android:visibility="invisible" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="12"
+                android:textSize="25sp"
+                android:id="@+id/day_month"
+                android:layout_below="@+id/pro"
+                android:layout_alignEnd="@+id/pro"
+                android:layout_marginEnd="7dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sunday"
+                android:id="@+id/day_week"
+                android:layout_below="@+id/day_month"
+                android:layout_alignStart="@+id/day_month" />
+
+            <View
+                android:layout_width="30dp"
+                android:layout_height="2dp"
+                android:background="#c0c0c0"
+                android:id="@+id/line"
+                android:layout_below="@+id/day_week"
+                android:layout_alignStart="@+id/day_week" />
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/note"
+                android:id="@+id/imageView"
+                android:layout_below="@+id/line"
+                android:layout_alignStart="@+id/note_tv" />
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/life"
+                android:id="@+id/imageView2"
+                android:layout_above="@+id/day_month"
+                android:layout_alignEnd="@+id/run_tv" />
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/run"
+                android:layout_marginEnd="28dp"
+                android:id="@+id/imageView4"
+                android:layout_marginTop="25dp"
+                android:layout_below="@+id/note_tv"
+                android:layout_alignParentEnd="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="3"
+                android:gravity="center"
+                android:layout_gravity="center_horizontal"
+                android:textSize="10sp"
+                android:id="@+id/note_tv"
+                android:layout_marginRight="128dp"
+                android:layout_marginTop="8dp"
+                android:layout_below="@+id/imageView"
+                android:layout_alignStart="@+id/imageView2" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1.3 mi"
+                android:textSize="10sp"
+                android:id="@+id/life_tv"
+                android:layout_marginTop="5dp"
+                android:layout_below="@+id/imageView4"
+                android:layout_alignEnd="@+id/imageView4" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="3 calls"
+                android:textSize="10sp"
+                android:id="@+id/run_tv"
+                android:layout_alignBaseline="@+id/day_month"
+                android:layout_alignBottom="@+id/day_month"
+                android:layout_alignStart="@+id/life_tv" />
+
+            <RelativeLayout
+                android:layout_width="170dp"
+                android:layout_height="160dp"
+                android:id="@+id/mini_data_card"
+                android:layout_alignTop="@+id/imageView2"
+                android:layout_centerHorizontal="true" >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/mini_data_card_text"
+                    android:fontFamily="sans-serif-thin"
+                    android:layout_margin="10dp"
+                    android:textStyle="bold"/>
+
+                <View
+                    android:layout_width="100dp"
+                    android:layout_height="1dp"
+                    android:background="#c0c0c0"
+                    android:id="@+id/line2"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true" />
+            </RelativeLayout>
+
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+</android.support.design.widget.CoordinatorLayout>

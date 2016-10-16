@@ -5,6 +5,7 @@
     android:id="@+id/activity_initial_screen"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context="kdas.i_nterface.locusreverb.InitialScreen">
 
     <!--<android.support.design.widget.FloatingActionButton-->

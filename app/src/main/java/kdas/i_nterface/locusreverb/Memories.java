@@ -27,8 +27,8 @@ public class Memories extends AppCompatActivity {
         //tabLayout.setupWithViewPager(vp);
 
         NavigationTabStrip ts = (NavigationTabStrip)findViewById(R.id.tab);
-        ts.setTitles("1", "2");
-        ts.setTitleSize(60);
+        ts.setTitles("Friends", "Professional");
+        ts.setTitleSize(25);
         ts.setViewPager(vp);
 
     }

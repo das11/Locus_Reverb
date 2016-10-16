@@ -2,11 +2,13 @@
 <resources>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#03A9F4</color>
-    <color name="colorAccent">#039BE5</color>
+    <color name="colorAccent">#03A9F4</color>
 
     <color name="elasticbackground">#E24035</color>
 
     <color name="transparent">#00ffffff</color>
+
+    <color name="lime">#CDDC39</color>
 
     <color name="colorPrimary2">#3F51B5</color>
     <color name="colorPrimaryDark2">#03A9F4</color>
@@ -28,6 +30,8 @@
     <color name="some_accent">#32A9E3</color>
     <color name="some_red">#E65100</color>
     <color name="some_white">#FCFAFA</color>
+    <color name="white">#ffffff</color>
+
     <array name="dot_colors">
         <item>#03A9F4</item>
         <item>#E65100</item>

@@ -160,6 +160,11 @@ public class Init extends AppCompatActivity {
 
             DatabaseReference nested_node_f = friends.child(0 + "");
             DatabaseReference nested_node_p = professional.child(0 + "");
+            DatabaseReference gist_f = friends.child("gist");
+            DatabaseReference gist_p = professional.child("gist");
+
+            gist_f.setValue("nothing till now");
+            gist_p.setValue("nothing till now :p");
 
             for (int j = 0; j < 2; ++j){
                 DatabaseReference str;

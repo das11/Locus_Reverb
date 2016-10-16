@@ -15,9 +15,11 @@
 
     <com.gigamole.navigationtabstrip.NavigationTabStrip
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="30dp"
+        app:nts_active_color="@color/white"
+        android:background="@color/colorPrimaryDark"
         app:nts_type="point"
-        app:nts_color="@color/colorAccent"
+        app:nts_color="@color/lime"
         android:id="@+id/tab"/>
 
     <android.support.v4.view.ViewPager

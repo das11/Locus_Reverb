@@ -138,8 +138,8 @@ public class InitialScreen extends AppCompatActivity {
         @Override
         protected String doInBackground(String... strings) {
 //            start_service();
-            start_notif_service();
-            //init();
+            //start_notif_service();
+//            init();
 
             return null;
         }
