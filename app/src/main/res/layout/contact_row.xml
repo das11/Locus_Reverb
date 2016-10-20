@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp"
+    android:id="@+id/base_coord"
+    android:paddingTop="2dp"
+    android:paddingBottom="4dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/view3">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/A">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="8dp"
+                android:text="New Text"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:id="@+id/tv1"
+
+                android:layout_marginStart="11dp"
+                android:layout_alignParentTop="true"
+                android:layout_toEndOf="@+id/con_image" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="New Text"
+                android:textSize="15sp"
+                android:paddingBottom="8dp"
+                android:id="@+id/tv2"
+                android:paddingTop="10dp"
+                android:layout_below="@+id/tv1"
+                android:layout_alignStart="@+id/tv1" />
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:id="@+id/con_image"
+                android:layout_marginStart="6dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentStart="true" />
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/fab"
+        app:layout_anchor="@+id/view3"
+        app:layout_anchorGravity="right|end|bottom"
+        android:layout_marginTop="55dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="20dp"
+        android:src="@drawable/add_con"
+        app:fabSize="mini"
+        app:elevation="5dp"
+        app:backgroundTint="@color/yellow"
+        />
+
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:id="@+id/fab2"
+        app:layout_anchor="@+id/view3"
+        app:elevation="5dp"
+        app:layout_anchorGravity="right|end|bottom"
+        android:layout_marginRight="65dp"
+        android:layout_marginTop="30dp"
+        app:fabSize="mini"
+        android:src="@drawable/ping_w"
+        app:backgroundTint="@color/yellow_2"
+        />
+
+
+</android.support.design.widget.CoordinatorLayout>

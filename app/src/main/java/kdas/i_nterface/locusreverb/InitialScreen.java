@@ -11,7 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.transitionseverywhere.ArcMotion;
 import com.transitionseverywhere.ChangeBounds;
 import com.transitionseverywhere.TransitionManager;
@@ -19,6 +21,8 @@ import com.transitionseverywhere.TransitionManager;
 public class InitialScreen extends AppCompatActivity {
 
     ImageButton center, i1, i2, i3, i4;
+
+    FirebaseAuth fAuth = FirebaseAuth.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,6 +132,15 @@ public class InitialScreen extends AppCompatActivity {
             }
         });
 
+        i2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(InitialScreen.this, ContactsActivity.class));
+                Toast.makeText(getApplicationContext(), "DOEN DONE ", Toast.LENGTH_LONG).show();
+                Log.d("Con", "Con");
+            }
+        });
+
         new do_stuff().execute("");
 
 
@@ -139,7 +152,7 @@ public class InitialScreen extends AppCompatActivity {
         protected String doInBackground(String... strings) {
 //            start_service();
             //start_notif_service();
-//            init();
+            init();
 
             return null;
         }
@@ -161,16 +174,16 @@ public class InitialScreen extends AppCompatActivity {
         boolean init = false;
 
         SharedPreferences pref = getSharedPreferences("PREFS", MODE_PRIVATE);
-        init = pref.getBoolean("Initialized", init);
+//        init = pref.getBoolean("Initialized", init);
         Log.d("home init", init + "");
 
-//        if (!init){
-//            Intent i = new Intent(InitialScreen.this, Init.class);
-//            startActivity(i);
-//        }
+        if (fAuth.getCurrentUser() != null)
+            init = true;
 
-        Intent i = new Intent(InitialScreen.this, Init.class);
+        if (!init){
+            Intent i = new Intent(InitialScreen.this, Init.class);
             startActivity(i);
+        }
 
 //        ScheduledExecutorService scheduleTaskExecutor = Executors.newScheduledThreadPool(5);
 //        scheduleTaskExecutor.scheduleAtFixedRate(new Runnable() {

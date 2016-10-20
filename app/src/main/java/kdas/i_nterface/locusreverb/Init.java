@@ -27,6 +27,8 @@ import is.arontibo.library.ElasticDownloadView;
 
 public class Init extends AppCompatActivity {
 
+    String uid;
+
     DatabaseReference ROOT;
 
     EditText initEmail, initPass;
@@ -98,7 +100,6 @@ public class Init extends AppCompatActivity {
                                 editor.putBoolean("Initialized", true);
 
                                 user = fAuth.getCurrentUser();
-                                String uid;
                                 uid = user.getUid();
                                 editor.putString("uid", uid);
                                 editor.apply();
@@ -129,7 +130,6 @@ public class Init extends AppCompatActivity {
     public void inflate_firebase(){
         ROOT = FirebaseDatabase.getInstance().getReference();
 
-        String uid;
         SharedPreferences pref = getSharedPreferences("PREFS",MODE_PRIVATE);
         uid = pref.getString("uid", "");
 
@@ -139,39 +139,60 @@ public class Init extends AppCompatActivity {
         DatabaseReference notif = user_node.child("notif");
         DatabaseReference pinged = user_node.child("pinged");
         DatabaseReference pinged_by = user_node.child("pinged_by");
+        DatabaseReference contact_num = user_node.child("contact");
+
+        /**
+         *
+         */
+        DatabaseReference user_append = ROOT.child("users/" + uid);
+        user_append.setValue(uid);
 
         location.setValue("null");
         notif.setValue("null");
         pinged.setValue("null");
         pinged_by.setValue("null");
+        contact_num.setValue(0);
 
         DatabaseReference days;
         for(int i = 1; i < 366; ++i){
             days = data.child(i + "");
             DatabaseReference points_f = days.child("points_f");
             DatabaseReference points_p = days.child("points_p");
+            DatabaseReference points_family = days.child("points_family");
 
             points_f.setValue(1);
             points_p.setValue(1);
+            points_family.setValue(1);
 
             DatabaseReference points_data = days.child("points_data");
             DatabaseReference friends = points_data.child("friends");
             DatabaseReference professional = points_data.child("professional");
+            DatabaseReference family = points_data.child("family");
 
             DatabaseReference nested_node_f = friends.child(0 + "");
             DatabaseReference nested_node_p = professional.child(0 + "");
+            DatabaseReference nested_node_family = family.child(0 + "");
             DatabaseReference gist_f = friends.child("gist");
             DatabaseReference gist_p = professional.child("gist");
+            DatabaseReference gist_family = family.child("gist");
 
             gist_f.setValue("nothing till now");
             gist_p.setValue("nothing till now :p");
+            gist_family.setValue("nothing till now :f");
 
-            for (int j = 0; j < 2; ++j){
+            /** value of j accounts for the nodes of the sub groups
+             0 -> friends
+             1 -> professional
+             2 -> family
+             **/
+            for (int j = 0; j < 3; ++j){
                 DatabaseReference str;
                 if (j == 0)
                     str = nested_node_f;
-                else
+                else if (j == 1)
                     str = nested_node_p;
+                else
+                    str = nested_node_family;
 
                 DatabaseReference point_uid = str.child("uid");
                 DatabaseReference start = str.child("start");
