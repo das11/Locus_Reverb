@@ -48,6 +48,8 @@ dependencies {
     compile 'com.github.halysongoncalves:pugnotification:1.8.1'
     compile 'com.github.pavlospt:circleview:1.3'
     compile 'com.github.sundeepk:compact-calendar-view:1.8.9'
+    compile 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
+
     compile 'com.android.support:support-v4:24.2.1'
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:recyclerview-v7:24.2.1'

@@ -1,6 +1,7 @@
 package kdas.i_nterface.locusreverb;
 
 import android.content.ContentResolver;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
@@ -15,6 +16,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.Toast;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -33,6 +37,9 @@ public class ContactsActivity extends AppCompatActivity {
 
     Contact_adapter adapter;
 
+    DatabaseReference ROOT = FirebaseDatabase.getInstance().getReference();
+    DatabaseReference user_node, friends;
+
     Cursor cursor;
 
     @Override
@@ -47,6 +54,8 @@ public class ContactsActivity extends AppCompatActivity {
             new read_async().execute("");
         else
             askForPermission(android.Manifest.permission.READ_CONTACTS, 11);
+
+
 
 
         adapter = new Contact_adapter(this, contact);
@@ -97,6 +106,8 @@ public class ContactsActivity extends AppCompatActivity {
 
     private class read_async extends AsyncTask<String, Void, String> {
 
+        String uid;
+
         @Override
         protected void onPreExecute(){
 
@@ -107,6 +118,11 @@ public class ContactsActivity extends AppCompatActivity {
 
             while (!read_done){
                 readContacts();
+                SharedPreferences preferences = getSharedPreferences("PREFS", MODE_PRIVATE);
+                uid = preferences.getString("uid","");
+
+                user_node = ROOT.child(uid);
+                friends = user_node.child("friends");
             }
 
             return null;
@@ -130,6 +146,8 @@ public class ContactsActivity extends AppCompatActivity {
                 }
             }
             adapter.notifyDataSetChanged();
+
+
         }
     }
 
@@ -169,7 +187,7 @@ public class ContactsActivity extends AppCompatActivity {
                     Cursor phcursor = contentResolver.query(phone_content_uri, null, phone_contact_id + " = ?", new String[] {contact_id}, null);
                     while (phcursor.moveToNext()){
                         phnum = phcursor.getString(phcursor.getColumnIndex(number));
-                        output2.append("\nNumber " + phnum);
+                        output2.append(phnum + "");
                         temp_num = phnum;
                         //contact_num.add(temp_num.toString());
                     }
@@ -184,7 +202,7 @@ public class ContactsActivity extends AppCompatActivity {
                 //Log.d("on", "on");
             }
             Log.d("Map :: ", contact_name.toString());
-            Log.d("Map :: ", contact_num.toString());
+            Log.d("Map :: ", contact_num.toString() + "\n");
             Log.d("size :: ", contact_name.size() + "");
             //inf();
             //writef(contact);

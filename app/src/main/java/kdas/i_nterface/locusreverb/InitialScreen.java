@@ -127,7 +127,7 @@ public class InitialScreen extends AppCompatActivity {
         i1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(InitialScreen.this, Memories.class));
+                startActivity(new Intent(InitialScreen.this, ContactsActivity.class));
                 Log.d("CLICKED", "CLICK");
             }
         });
@@ -135,9 +135,16 @@ public class InitialScreen extends AppCompatActivity {
         i2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(InitialScreen.this, ContactsActivity.class));
+                startActivity(new Intent(InitialScreen.this, Memories.class));
                 Toast.makeText(getApplicationContext(), "DOEN DONE ", Toast.LENGTH_LONG).show();
                 Log.d("Con", "Con");
+            }
+        });
+
+        i3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(InitialScreen.this, PeersActiviy.class));
             }
         });
 

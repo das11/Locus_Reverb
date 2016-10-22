@@ -2,15 +2,24 @@ package kdas.i_nterface.locusreverb;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
@@ -18,6 +27,11 @@ import java.util.List;
  * Created by Interface on 15/08/16.
  */
 public class Contact_adapter extends RecyclerView.Adapter<Contact_adapter.ViewHolder> {
+
+    DatabaseReference ROOT = FirebaseDatabase.getInstance().getReference();
+    DatabaseReference peer, peer_s;
+
+    String uid, friend_uid, friend_name;
 
     public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
@@ -91,7 +105,7 @@ public class Contact_adapter extends RecyclerView.Adapter<Contact_adapter.ViewHo
         TextView con_num = holder.cnum;
         ImageView image_con = holder.conimage;
         FloatingActionButton f1,f2;
-        f1 = holder.fab1;
+        f1 = holder.fab1; // fab1 -> ADD button
         f2 = holder.fab2;
 
         /**
@@ -109,11 +123,36 @@ public class Contact_adapter extends RecyclerView.Adapter<Contact_adapter.ViewHo
 //        image_con.setImageDrawable(condraw);
 
 
+
+
         f1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                Snackbar.make(view, condata.contact_name, Snackbar.LENGTH_LONG).show();
+                Snackbar.make(view, condata.contact_name + "\n" + condata.contact_num, Snackbar.LENGTH_LONG).show();
+                friend_name = condata.contact_name;
+                peer = ROOT.child("/users/" + condata.contact_num);
+                Log.d("peer", peer.toString());
+                peer.addValueEventListener(new ValueEventListener() {
+                    boolean found = false;
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        Log.d("log", dataSnapshot.getValue(String.class) + "");
+                        if (dataSnapshot.exists()){
+                            Log.d("exists", dataSnapshot.getValue(String.class));
+                            found = true;
+                            friend_uid = dataSnapshot.getValue(String.class);
+                            addFriend();
+                        }
+                        if (!found)
+                        Log.d("Error"," with number : not found");
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
 
             }
         });
@@ -130,5 +169,27 @@ public class Contact_adapter extends RecyclerView.Adapter<Contact_adapter.ViewHo
     @Override
     public int getItemCount() {
         return contacts.size();
+    }
+
+    public void addFriend(){
+        SharedPreferences preferences = getContext().getSharedPreferences("PREFS", Context.MODE_PRIVATE);
+        uid = preferences.getString("uid", "");
+
+        peer_s = ROOT.child(uid + "/friends");
+        peer_s.child(friend_uid).setValue(friend_name);
+
+        peer_s.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.d("COUNT", dataSnapshot.getChildrenCount() + "");
+                Toast.makeText(getContext(), dataSnapshot.getChildrenCount() + "", Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
     }
 }

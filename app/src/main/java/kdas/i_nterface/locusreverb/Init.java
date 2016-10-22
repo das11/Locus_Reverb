@@ -23,6 +23,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.List;
+
 import is.arontibo.library.ElasticDownloadView;
 
 public class Init extends AppCompatActivity {
@@ -140,10 +142,8 @@ public class Init extends AppCompatActivity {
         DatabaseReference pinged = user_node.child("pinged");
         DatabaseReference pinged_by = user_node.child("pinged_by");
         DatabaseReference contact_num = user_node.child("contact");
+        DatabaseReference peers = user_node.child("friends");
 
-        /**
-         *
-         */
         DatabaseReference user_append = ROOT.child("users/" + uid);
         user_append.setValue(uid);
 
@@ -152,6 +152,7 @@ public class Init extends AppCompatActivity {
         pinged.setValue("null");
         pinged_by.setValue("null");
         contact_num.setValue(0);
+        peers.setValue("ll", List.class);
 
         DatabaseReference days;
         for(int i = 1; i < 366; ++i){
