@@ -23,8 +23,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.List;
-
 import is.arontibo.library.ElasticDownloadView;
 
 public class Init extends AppCompatActivity {
@@ -94,6 +92,7 @@ public class Init extends AppCompatActivity {
                             if (!task.isSuccessful()) {
                                 elasticDownloadView.fail();
                                 Toast.makeText(Init.this, "Authentication failed." + task.getException(), Toast.LENGTH_SHORT).show();
+                                Log.d("Firebase Auth ::", task.getException() + "");
                             } else {
                                 Log.d("Done ", "GO HOME");
 
@@ -152,7 +151,6 @@ public class Init extends AppCompatActivity {
         pinged.setValue("null");
         pinged_by.setValue("null");
         contact_num.setValue(0);
-        peers.setValue("ll", List.class);
 
         DatabaseReference days;
         for(int i = 1; i < 366; ++i){

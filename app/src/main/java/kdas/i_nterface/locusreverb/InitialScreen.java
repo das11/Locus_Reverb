@@ -148,6 +148,13 @@ public class InitialScreen extends AppCompatActivity {
             }
         });
 
+        i4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(InitialScreen.this, PingActivity.class));
+            }
+        });
+
         new do_stuff().execute("");
 
 

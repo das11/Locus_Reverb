@@ -217,9 +217,10 @@ public class ContactsActivity extends AppCompatActivity {
             read_done = true;
             //thread_kill = true;
 
-
         }else {
         }
+
+        cursor.close();
     }
 
     public void write_file(ArrayList<String> name, ArrayList<String> num){

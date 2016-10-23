@@ -7,4 +7,5 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <string name="test">Test \ntest it was well and well, and hence it went quite well. test \ntest it was well and well, and hence it went quite well. test \ntest it was well and well, and hence it went quite well.test \ntest it was well and well, and hence it went quite well. test \ntest it was well and well, and hence it went quite well.</string>
+    <string name="title_activity_ping">Map</string>
 </resources>

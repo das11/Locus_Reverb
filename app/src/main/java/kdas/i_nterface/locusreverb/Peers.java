@@ -6,11 +6,12 @@ package kdas.i_nterface.locusreverb;
 
 public class Peers {
 
-    String name, num, alphabet;
+    String name, uid, num, alphabet;
 
-    Peers(String name, String num){
+    Peers(String name, String uid, String num){
         this.name = name;
         this.num = num;
+        this.uid = uid;
         alphabet = String.valueOf(name.charAt(0));
     }
 }

@@ -56,13 +56,16 @@ public class PeersActiviy extends AppCompatActivity {
         String uid;
         SharedPreferences preferences = getSharedPreferences("PREFS", MODE_PRIVATE);
         uid = preferences.getString("uid", "");
+        Log.d("Peer_uid", " from PeersActivty " + uid);
         DatabaseReference user = ROOT.child(uid);
 
         DatabaseReference peers = user.child("friends");
+        Log.d("peers  ", peers + "");
         peers.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 parseMap((Map<String, String>) dataSnapshot.getValue());
+                Log.d("map", dataSnapshot.getValue().toString());
             }
 
             @Override
@@ -80,7 +83,7 @@ public class PeersActiviy extends AppCompatActivity {
             uid_value = entry.getKey();
             uid_name = entry.getValue();
 
-            peersList.add(new Peers(uid_name, "0000000000"));
+            peersList.add(new Peers(uid_name, uid_value,"0000000000"));
             adapter.notifyDataSetChanged();
 
             Log.d("log", uid_value + " " + uid_name);
