@@ -3,8 +3,10 @@ package kdas.i_nterface.locusreverb;
 import android.Manifest;
 import android.app.Activity;
 import android.content.IntentSender;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
@@ -24,14 +26,26 @@ import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsResult;
 import com.google.android.gms.location.LocationSettingsStates;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class PingActivity extends FragmentActivity implements OnMapReadyCallback,
                                                                 GoogleApiClient.ConnectionCallbacks,
@@ -44,13 +58,21 @@ public class PingActivity extends FragmentActivity implements OnMapReadyCallback
     protected LocationRequest locationRequest;
     protected Location currentLocation, acc_location;
     boolean permission_boolean = false;
-    boolean acc_location_bool = false;
+    boolean acc_location_bool_fetch_once = false;
+    boolean peer_fetch_location_bool = false;
+    boolean build_query_bool = false;
+    boolean camera_move_initial_bool = false;
 
     DatabaseReference ROOT = FirebaseDatabase.getInstance().getReference();
     Location peer_location = new Location("");
 
     String peer_uid, peer_name;
     String Dir_Query;
+    String poly_String;
+    List<LatLng>polyline_list = new ArrayList<>();
+    String directionResponse;
+
+    Polyline polyline;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +87,7 @@ public class PingActivity extends FragmentActivity implements OnMapReadyCallback
 
         buildGoogleApiClient();
         //gps();
-//        askForPermission(Manifest.permission.ACCESS_FINE_LOCATION, 110);
+        //askForPermission(Manifest.permission.ACCESS_FINE_LOCATION, 110);
 
     }
 
@@ -81,6 +103,7 @@ public class PingActivity extends FragmentActivity implements OnMapReadyCallback
         }
     }
 
+
     private void getPeerLocation(){
         DatabaseReference peer_uidF = ROOT.child(peer_uid);
 
@@ -93,11 +116,19 @@ public class PingActivity extends FragmentActivity implements OnMapReadyCallback
                 double lat = dataSnapshot.child("latitude").getValue(double.class);
                 double longi = dataSnapshot.child("longitude").getValue(double.class);
 
-                Log.d("LATLNG", lat + "\n" + longi);
+                Log.d("Peer LATLNG ", lat + "\n" + longi);
                 peer_location.setLatitude(lat);
                 peer_location.setLongitude(longi);
-                if (acc_location_bool)
-                    Dir_Query = build_query(acc_location, peer_location);
+
+                if (!peer_fetch_location_bool){
+                    peer_fetch_location_bool = true;
+                    build_query_bool = false;
+                    Log.d("peer", "_fetch_location_bool " + peer_fetch_location_bool + "\n\n");
+                }
+
+//                if (acc_location_bool_fetch_once)
+//                    Dir_Query = build_query(acc_location, peer_location);
+//                Log.d("query", Dir_Query + "\n\n");
             }
 
             @Override
@@ -185,10 +216,21 @@ public class PingActivity extends FragmentActivity implements OnMapReadyCallback
         Log.d("Location ", location + "\n");
 
         float accuracy = currentLocation.getAccuracy();
-        if (accuracy < 20){
+        if (accuracy < 20 && !acc_location_bool_fetch_once){
             acc_location = currentLocation;
-            acc_location_bool = true;
+            push_acc_location(acc_location);
+            acc_location_bool_fetch_once = true;
             Log.d("ACC LOCATION", acc_location + "");
+        }
+
+        if (acc_location_bool_fetch_once && peer_fetch_location_bool && !build_query_bool){
+            Log.d("DIR QUERY", "\n\n");
+            Dir_Query = build_query(currentLocation, peer_location);
+            build_query_bool = true;
+            new getDirection().execute("");
+        }
+        if (!camera_move_initial_bool){
+            movecamera(currentLocation);
         }
 
     }
@@ -212,6 +254,15 @@ public class PingActivity extends FragmentActivity implements OnMapReadyCallback
         }
     }
 
+    public void push_acc_location(Location accLocation){
+        Log.d("CALL ::", "push_acc_location");
+        SharedPreferences preferences = getSharedPreferences("PREFS", MODE_PRIVATE);
+        String uid = preferences.getString("uid", "");
+
+        DatabaseReference user_node = ROOT.child(uid);
+        DatabaseReference user_locationF = user_node.child("location");
+        user_locationF.setValue(accLocation);
+    }
 
     public void askForPermission(String permission, Integer requestCode) {
         if (ContextCompat.checkSelfPermission(PingActivity.this, permission) != PackageManager.PERMISSION_GRANTED) {
@@ -357,7 +408,7 @@ public class PingActivity extends FragmentActivity implements OnMapReadyCallback
     public String build_query(Location origin, Location dest){
         double origin_lat, origin_long, dest_lat, dest_long;
         StringBuilder query = new StringBuilder();
-        query.append("http://maps.googleapis.com/maps/api/directions/json?origin=");
+        query.append("https://maps.googleapis.com/maps/api/directions/json?origin=");
 
         origin_lat = origin.getLatitude();
         origin_long = origin.getLongitude();
@@ -374,5 +425,105 @@ public class PingActivity extends FragmentActivity implements OnMapReadyCallback
         Log.d("BUILD Q", query.toString());
 
         return query.toString();
+    }
+
+    private class getDirection extends AsyncTask<String, Void, String>{
+
+        @Override
+        protected String doInBackground(String... strings) {
+            HttpHandler httpHandler = new HttpHandler();
+            directionResponse = httpHandler.GetHTTPData(Dir_Query);
+            Log.d("RESP", directionResponse + "");
+            return directionResponse;
+        }
+
+        @Override
+        protected void onPostExecute(String directionResponse){
+            if(directionResponse != null){
+                try {
+                    JSONObject root = new JSONObject(directionResponse);
+
+                    JSONArray routes = root.getJSONArray("routes");
+                    for(int i = 0; i < routes.length(); ++i)
+                    {
+                        JSONObject poly_j = routes.getJSONObject(i);
+                        JSONObject point = poly_j.getJSONObject("overview_polyline");
+                        poly_String = point.getString("points");
+
+                        Log.d("poly",poly_String);
+
+                        if (polyline != null){
+                            polyline.remove();
+                            polyline_list.clear();
+                        }
+
+                        polyline_list = decodePoly(poly_String);
+
+                        polyline = mMap.addPolyline(new PolylineOptions().addAll(polyline_list).color(ContextCompat.getColor(getApplicationContext(),R.color.some_accent)));
+
+                        Log.d("\n\n::::::: ADDED :::::::", "POLY");
+                        for (int j = 0; j < polyline_list.size(); ++j){
+                            Log.d("Poly List  ", polyline_list.get(j).toString());
+                        }
+
+
+                    }
+
+                }catch (JSONException e){
+                    e.printStackTrace();
+                }
+            }
+            else{
+                //TOAST
+            }
+        }
+    }
+
+    private List<LatLng> decodePoly(String encoded) {
+
+        java.util.List<LatLng> poly = new ArrayList<>();
+        int index = 0, len = encoded.length();
+        int lat = 0, lng = 0;
+
+        while (index < len) {
+            int b, shift = 0, result = 0;
+            do {
+                b = encoded.charAt(index++) - 63;
+                result |= (b & 0x1f) << shift;
+                shift += 5;
+            } while (b >= 0x20);
+            int dlat = ((result & 1) != 0 ? ~(result >> 1) : (result >> 1));
+            lat += dlat;
+
+            shift = 0;
+            result = 0;
+            do {
+                b = encoded.charAt(index++) - 63;
+                result |= (b & 0x1f) << shift;
+                shift += 5;
+            } while (b >= 0x20);
+            int dlng = ((result & 1) != 0 ? ~(result >> 1) : (result >> 1));
+            lng += dlng;
+
+            LatLng p = new LatLng((((double) lat / 1E5)),
+                    (((double) lng / 1E5)));
+            poly.add(p);
+        }
+        return poly;
+    }
+
+    public void movecamera(Location tempLocation){
+        double lat = tempLocation.getLatitude();
+        double longi = tempLocation.getLongitude();
+
+        LatLng latLng = new LatLng(lat, longi);
+        CameraPosition cameraPosition = new CameraPosition.Builder()
+                .target(latLng)
+                .tilt(60)
+                .zoom(16)
+                .build();
+
+        mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition), 2000, null);
+        camera_move_initial_bool = true;
     }
 }

@@ -191,6 +191,7 @@ public class InitialScreen extends AppCompatActivity {
 //        init = pref.getBoolean("Initialized", init);
         Log.d("home init", init + "");
 
+        Log.d("current user", fAuth.getCurrentUser() + "");
         if (fAuth.getCurrentUser() != null)
             init = true;
 

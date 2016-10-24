@@ -131,6 +131,25 @@
         android:visibility="invisible"
         android:layout_gravity="center" />
 
+    <!--<com.tbuonomo.circleloading.CircleLoading-->
+        <!--android:layout_width="70dp"-->
+        <!--android:layout_height="70dp"-->
+        <!--app:innerColor="@color/colorPrimaryDark"-->
+        <!--app:innerAlpha="250"-->
+        <!--app:outerColor="@color/colorPrimaryDark"-->
+        <!--app:outerAlpha="160"-->
+        <!--app:animationDuration="500"/>-->
+
+    <com.wang.avi.AVLoadingIndicatorView
+        android:id="@+id/avi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/AVLoadingIndicatorView"
+        android:visibility="visible"
+        app:indicatorName="BallTrianglePathIndicator"
+        app:indicatorColor="@color/blue"
+    />
+
 
 </FrameLayout>
 
