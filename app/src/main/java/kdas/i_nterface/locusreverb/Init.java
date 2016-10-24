@@ -1,9 +1,12 @@
 package kdas.i_nterface.locusreverb;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -38,6 +41,8 @@ public class Init extends AppCompatActivity {
     FirebaseAuth fAuth;
     FirebaseUser user;
 
+    FloatingActionButton reg;
+
     SharedPreferences sharedPreferences;
 
     @Override
@@ -51,7 +56,7 @@ public class Init extends AppCompatActivity {
         card = (CardView)findViewById(R.id.init_card);
         initEmail = (EditText)findViewById(R.id.email);
         initPass = (EditText)findViewById(R.id.password);
-        done = (FloatingActionButton) findViewById(R.id.fab_init);
+        done = (FloatingActionButton) findViewById(R.id.signup);
         backhome = (FloatingActionButton)findViewById(R.id.floatingActionButton);
 
         final ElasticDownloadView elasticDownloadView = (ElasticDownloadView)findViewById(R.id.elasticProgress);
@@ -59,10 +64,10 @@ public class Init extends AppCompatActivity {
         backhome.setVisibility(View.INVISIBLE);
 
         done.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onClick(View view) {
-
-
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(Init.this, done, done.getTransitionName());
                 String email, pass;
 
                 email = initEmail.getText().toString().trim();
@@ -208,4 +213,6 @@ public class Init extends AppCompatActivity {
         }
 
     }
+
+
 }

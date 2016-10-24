@@ -131,24 +131,69 @@
         android:visibility="invisible"
         android:layout_gravity="center" />
 
-    <!--<com.tbuonomo.circleloading.CircleLoading-->
-        <!--android:layout_width="70dp"-->
-        <!--android:layout_height="70dp"-->
-        <!--app:innerColor="@color/colorPrimaryDark"-->
-        <!--app:innerAlpha="250"-->
-        <!--app:outerColor="@color/colorPrimaryDark"-->
-        <!--app:outerAlpha="160"-->
-        <!--app:animationDuration="500"/>-->
+    <FrameLayout
+        android:id="@+id/menu_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="invisible"
+        >
 
-    <com.wang.avi.AVLoadingIndicatorView
-        android:id="@+id/avi"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        style="@style/AVLoadingIndicatorView"
-        android:visibility="visible"
-        app:indicatorName="BallTrianglePathIndicator"
-        app:indicatorColor="@color/blue"
-    />
+        <com.ogaclejapan.arclayout.ArcLayout
+            android:id="@+id/arc_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:arc_axisRadius="114dp"
+            app:arc_freeAngle="true"
+            app:arc_origin="bottom"
+            app:arc_radius="140dp"
+            >
+
+            <android.support.design.widget.FloatingActionButton
+                app:srcCompat="@drawable/done_w"
+                android:textColor="@color/blue"
+                app:arc_angle="30"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <android.support.design.widget.FloatingActionButton
+                app:srcCompat="@drawable/done_w"
+                android:textColor="@color/green"
+                app:arc_angle="60"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <android.support.design.widget.FloatingActionButton
+                app:srcCompat="@drawable/done_w"
+                android:textColor="@color/green_grass"
+                app:arc_angle="90"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <android.support.design.widget.FloatingActionButton
+                app:srcCompat="@drawable/done_w"
+                android:textColor="@color/yellow_2"
+                app:arc_angle="120"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <android.support.design.widget.FloatingActionButton
+                app:srcCompat="@drawable/done_w"
+                android:textColor="@color/red_wine"
+                app:arc_angle="150"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </com.ogaclejapan.arclayout.ArcLayout>
+    </FrameLayout>
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_gravity="bottom|center_horizontal"
+        android:background="@color/some_teal"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        />
 
 
 </FrameLayout>

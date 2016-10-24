@@ -10,6 +10,8 @@
 
     <color name="lime">#CDDC39</color>
     <color name="blue">#1F7CF6</color>
+    <color name="blue_dark">#006EFF</color>
+    <color name="green">#2fa881</color>
 
     <color name="colorPrimary2">#3F51B5</color>
     <color name="colorPrimaryDark2">#03A9F4</color>

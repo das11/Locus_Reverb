@@ -12,6 +12,8 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -74,6 +76,9 @@ public class PingActivity extends FragmentActivity implements OnMapReadyCallback
 
     Polyline polyline;
 
+    com.wang.avi.AVLoadingIndicatorView loader;
+    TextView loading;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,6 +87,10 @@ public class PingActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        loader = (com.wang.avi.AVLoadingIndicatorView)findViewById(R.id.avli);
+        loading = (TextView)findViewById(R.id.textView3);
+        loader.smoothToShow();
 
         getPeerInitialData();
 
@@ -460,7 +469,8 @@ public class PingActivity extends FragmentActivity implements OnMapReadyCallback
                         polyline_list = decodePoly(poly_String);
 
                         polyline = mMap.addPolyline(new PolylineOptions().addAll(polyline_list).color(ContextCompat.getColor(getApplicationContext(),R.color.some_accent)));
-
+                        loader.smoothToHide();
+                        loading.setVisibility(View.GONE);
                         Log.d("\n\n::::::: ADDED :::::::", "POLY");
                         for (int j = 0; j < polyline_list.size(); ++j){
                             Log.d("Poly List  ", polyline_list.get(j).toString());

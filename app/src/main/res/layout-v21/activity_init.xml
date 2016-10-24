@@ -64,11 +64,12 @@
                     android:layout_height="wrap_content"
                     android:text="Sign Up"
                     android:textSize="26sp"
-                    android:fontFamily="sans-serif-thin"
+                    android:fontFamily="sans-serif-condensed"
                     android:id="@+id/textView"
                     android:layout_alignParentTop="true"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="41dp" />
+                    android:layout_marginTop="41dp"
+                    android:textColor="@color/colorPrimaryDark" />
 
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
@@ -130,6 +131,7 @@
         android:layout_height="wrap_content"
         app:fabSize="normal"
         android:src="@drawable/done_w"
+        app:backgroundTint="@color/green"
         android:layout_alignTop="@id/cv"
         android:layout_marginTop="25dp"
         android:layout_alignEnd="@id/cv"

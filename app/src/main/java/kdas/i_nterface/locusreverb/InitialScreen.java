@@ -1,26 +1,41 @@
 package kdas.i_nterface.locusreverb;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnticipateInterpolator;
+import android.view.animation.OvershootInterpolator;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.ogaclejapan.arclayout.ArcLayout;
 import com.transitionseverywhere.ArcMotion;
 import com.transitionseverywhere.ChangeBounds;
 import com.transitionseverywhere.TransitionManager;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class InitialScreen extends AppCompatActivity {
 
     ImageButton center, i1, i2, i3, i4;
+
+    FloatingActionButton fab;
+    FrameLayout menuLayout;
+    ArcLayout arcLayout;
 
     FirebaseAuth fAuth = FirebaseAuth.getInstance();
 
@@ -36,6 +51,22 @@ public class InitialScreen extends AppCompatActivity {
         i2 = (ImageButton)findViewById(R.id.imageButton3);
         i3 = (ImageButton)findViewById(R.id.i3);
         i4 = (ImageButton)findViewById(R.id.i4);
+
+        fab = (FloatingActionButton)findViewById(R.id.fab);
+        menuLayout = (FrameLayout) findViewById(R.id.menu_layout);
+        arcLayout = (ArcLayout) findViewById(R.id.arc_layout);
+
+//        for (int i = 0, size = arcLayout.getChildCount(); i < size; i++) {
+//            arcLayout.getChildAt(i).setOnClickListener(this);
+//        }
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onFabClick(view);
+            }
+        });
+
 
         center.setOnClickListener(new View.OnClickListener() {
 
@@ -156,8 +187,95 @@ public class InitialScreen extends AppCompatActivity {
         });
 
         new do_stuff().execute("");
+    }
 
+    private void onFabClick(View v) {
+        if (v.isSelected()) {
+            hideMenu();
+        } else {
+            showMenu();
+        }
+        v.setSelected(!v.isSelected());
+    }
 
+    private void showMenu() {
+        menuLayout.setVisibility(View.VISIBLE);
+
+        List<Animator> animList = new ArrayList<>();
+
+        for (int i = 0, len = arcLayout.getChildCount(); i < len; i++) {
+            animList.add(createShowItemAnimator(arcLayout.getChildAt(i)));
+        }
+
+        AnimatorSet animSet = new AnimatorSet();
+        animSet.setDuration(400);
+        animSet.setInterpolator(new OvershootInterpolator());
+        animSet.playTogether(animList);
+        animSet.start();
+    }
+    private void hideMenu() {
+
+        List<Animator> animList = new ArrayList<>();
+
+        for (int i = arcLayout.getChildCount() - 1; i >= 0; i--) {
+            animList.add(createHideItemAnimator(arcLayout.getChildAt(i)));
+        }
+
+        AnimatorSet animSet = new AnimatorSet();
+        animSet.setDuration(400);
+        animSet.setInterpolator(new AnticipateInterpolator());
+        animSet.playTogether(animList);
+        animSet.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                super.onAnimationEnd(animation);
+                menuLayout.setVisibility(View.INVISIBLE);
+            }
+        });
+        animSet.start();
+
+    }
+
+    private Animator createShowItemAnimator(View item) {
+
+        float dx = fab.getX() - item.getX();
+        float dy = fab.getY() - item.getY();
+
+        item.setRotation(0f);
+        item.setTranslationX(dx);
+        item.setTranslationY(dy);
+
+        Animator anim = ObjectAnimator.ofPropertyValuesHolder(
+                item,
+                AnimatorUtils.rotation(0f, 720f),
+                AnimatorUtils.translationX(dx, 0f),
+                AnimatorUtils.translationY(dy, 0f)
+        );
+
+        return anim;
+    }
+
+    private Animator createHideItemAnimator(final View item) {
+        float dx = fab.getX() - item.getX();
+        float dy = fab.getY() - item.getY();
+
+        Animator anim = ObjectAnimator.ofPropertyValuesHolder(
+                item,
+                AnimatorUtils.rotation(720f, 0f),
+                AnimatorUtils.translationX(0f, dx),
+                AnimatorUtils.translationY(0f, dy)
+        );
+
+        anim.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                super.onAnimationEnd(animation);
+                item.setTranslationX(0f);
+                item.setTranslationY(0f);
+            }
+        });
+
+        return anim;
     }
 
     private class do_stuff extends AsyncTask<String, Void, String>{
@@ -166,8 +284,10 @@ public class InitialScreen extends AppCompatActivity {
         protected String doInBackground(String... strings) {
 //            start_service();
             //start_notif_service();
-            init();
+//            init();
 
+//            Intent i = new Intent(InitialScreen.this, Init.class);
+//            startActivity(i);
             return null;
         }
     }
@@ -181,8 +301,6 @@ public class InitialScreen extends AppCompatActivity {
         Intent notif_service = new Intent(this, notifService.class);
         startService(notif_service);
     }
-
-
 
     public void init(){
         boolean init = false;
