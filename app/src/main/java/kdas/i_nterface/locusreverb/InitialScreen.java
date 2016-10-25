@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
@@ -33,7 +32,7 @@ public class InitialScreen extends AppCompatActivity {
 
     ImageButton center, i1, i2, i3, i4;
 
-    FloatingActionButton fab;
+    ImageButton fab;
     FrameLayout menuLayout;
     ArcLayout arcLayout;
 
@@ -52,7 +51,7 @@ public class InitialScreen extends AppCompatActivity {
         i3 = (ImageButton)findViewById(R.id.i3);
         i4 = (ImageButton)findViewById(R.id.i4);
 
-        fab = (FloatingActionButton)findViewById(R.id.fab);
+        fab = (ImageButton)findViewById(R.id.fab);
         menuLayout = (FrameLayout) findViewById(R.id.menu_layout);
         arcLayout = (ArcLayout) findViewById(R.id.arc_layout);
 

@@ -29,15 +29,6 @@
         android:id="@+id/imageButton2"
         android:visibility="invisible" />
 
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/a_14"
-        android:background="@color/transparent"
-        android:layout_gravity="center"
-        android:id="@+id/imageButton3"
-        android:visibility="invisible" />
-
     <!--<com.mikhaellopez.circularimageview.CircularImageView-->
         <!--android:layout_width="100dp"-->
         <!--android:layout_height="100dp"-->
@@ -101,6 +92,15 @@
     <!--</android.support.v7.widget.CardView>-->
 
     <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/a_14"
+        android:background="@color/transparent"
+        android:layout_gravity="center"
+        android:id="@+id/imageButton3"
+        android:visibility="invisible" />
+
+    <ImageButton
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:background="@color/transparent"
@@ -110,7 +110,7 @@
         android:scaleType="fitXY"
         android:maxHeight="100dp"
         android:maxWidth="100dp"
-        android:visibility="visible"
+        android:visibility="invisible"
         android:elevation="14dp" />
 
     <ImageButton
@@ -142,25 +142,40 @@
             android:id="@+id/arc_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:arc_axisRadius="114dp"
-            app:arc_freeAngle="true"
-            app:arc_origin="bottom"
-            app:arc_radius="140dp"
+            app:arc_axisRadius="130dp"
+            app:arc_freeAngle="false"
+            app:arc_origin="center"
+            app:arc_radius="160dp"
             >
 
-            <android.support.design.widget.FloatingActionButton
-                app:srcCompat="@drawable/done_w"
-                android:textColor="@color/blue"
-                app:arc_angle="30"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+            <!--<android.support.design.widget.FloatingActionButton-->
+                <!--app:srcCompat="@drawable/done_w"-->
+                <!--android:textColor="@color/blue"-->
+                <!--app:arc_angle="30"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content" />-->
 
-            <android.support.design.widget.FloatingActionButton
-                app:srcCompat="@drawable/done_w"
-                android:textColor="@color/green"
-                app:arc_angle="60"
+            <ImageButton
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/a_14"
+                app:arc_angle="30"
+                android:background="@color/transparent"
+                android:layout_gravity="center"
+                android:visibility="visible" />
+
+            <!--<android.support.design.widget.FloatingActionButton-->
+                <!--app:srcCompat="@drawable/done_w"-->
+                <!--android:textColor="@color/green"-->
+                <!--app:arc_angle="60"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content" />-->
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/a_13"
+                android:background="@color/transparent"
+                android:layout_gravity="center" />
 
             <android.support.design.widget.FloatingActionButton
                 app:srcCompat="@drawable/done_w"
@@ -178,22 +193,25 @@
 
             <android.support.design.widget.FloatingActionButton
                 app:srcCompat="@drawable/done_w"
-                android:textColor="@color/red_wine"
+                android:textColor="@color/some_red"
                 app:arc_angle="150"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
         </com.ogaclejapan.arclayout.ArcLayout>
     </FrameLayout>
-    <android.support.design.widget.FloatingActionButton
+    <ImageButton
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="@color/transparent"
+        app:srcCompat="@drawable/init"
+        android:layout_gravity="center"
         android:id="@+id/fab"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_gravity="bottom|center_horizontal"
-        android:background="@color/some_teal"
-        android:textColor="@color/white"
-        android:textSize="24sp"
-        />
+        android:scaleType="fitXY"
+        android:maxHeight="100dp"
+        android:maxWidth="100dp"
+        android:visibility="visible"
+        android:elevation="14dp" />
 
 
 </FrameLayout>

@@ -26,7 +26,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import is.arontibo.library.ElasticDownloadView;
+//import is.arontibo.library.ElasticDownloadView;
 
 public class Init extends AppCompatActivity {
 
@@ -59,8 +59,8 @@ public class Init extends AppCompatActivity {
         done = (FloatingActionButton) findViewById(R.id.signup);
         backhome = (FloatingActionButton)findViewById(R.id.floatingActionButton);
 
-        final ElasticDownloadView elasticDownloadView = (ElasticDownloadView)findViewById(R.id.elasticProgress);
-        elasticDownloadView.setVisibility(View.INVISIBLE);
+//        final ElasticDownloadView elasticDownloadView = (ElasticDownloadView)findViewById(R.id.elasticProgress);
+//        elasticDownloadView.setVisibility(View.INVISIBLE);
         backhome.setVisibility(View.INVISIBLE);
 
         done.setOnClickListener(new View.OnClickListener() {
@@ -75,27 +75,27 @@ public class Init extends AppCompatActivity {
 
                 if (TextUtils.isEmpty(email)) {
                     Toast.makeText(getApplicationContext(), "Enter email", Toast.LENGTH_LONG).show();
-                    elasticDownloadView.fail();
+//                    elasticDownloadView.fail();
                 }
 
                 if (TextUtils.isEmpty(pass)) {
                     Toast.makeText(getApplicationContext(), "Enter password or i'll beat you up!", Toast.LENGTH_LONG).show();
-                    elasticDownloadView.fail();
+//                    elasticDownloadView.fail();
                 }
                 else {
                     background.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.elasticbackground));
 
                     backhome.setVisibility(View.VISIBLE);
                     card.setVisibility(View.INVISIBLE);
-                    elasticDownloadView.setVisibility(View.VISIBLE);
-                    elasticDownloadView.startIntro();
-                    elasticDownloadView.setProgress(30);
+//                    elasticDownloadView.setVisibility(View.VISIBLE);
+//                    elasticDownloadView.startIntro();
+//                    elasticDownloadView.setProgress(30);
 
                     fAuth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener(Init.this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (!task.isSuccessful()) {
-                                elasticDownloadView.fail();
+//                                elasticDownloadView.fail();
                                 Toast.makeText(Init.this, "Authentication failed." + task.getException(), Toast.LENGTH_SHORT).show();
                                 Log.d("Firebase Auth ::", task.getException() + "");
                             } else {
@@ -114,7 +114,7 @@ public class Init extends AppCompatActivity {
                                 inflate_firebase();
 
                                 Log.d("UID", uid + "");
-                                elasticDownloadView.success();
+//                                elasticDownloadView.success();
 
                             }
                         }
