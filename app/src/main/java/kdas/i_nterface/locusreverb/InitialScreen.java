@@ -36,7 +36,7 @@ public class InitialScreen extends AppCompatActivity {
     FrameLayout menuLayout;
     ArcLayout arcLayout;
 
-    FirebaseAuth fAuth = FirebaseAuth.getInstance();
+    FirebaseAuth fAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,8 +70,6 @@ public class InitialScreen extends AppCompatActivity {
         center.setOnClickListener(new View.OnClickListener() {
 
             boolean mToRightAnimation;
-
-
             @Override
             public void onClick(View view) {
 
@@ -88,7 +86,7 @@ public class InitialScreen extends AppCompatActivity {
                 mToRightAnimation = !mToRightAnimation;
                 FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) center.getLayoutParams();
                 params.gravity = mToRightAnimation ? (Gravity.CENTER | Gravity.BOTTOM) :
-                        (Gravity.CENTER);
+                        (Gravity.CENTER | Gravity.TOP);
 
                 FrameLayout.LayoutParams params1 = (FrameLayout.LayoutParams) i1.getLayoutParams();
                 params1.topMargin = mToRightAnimation ? 150 : 0;
@@ -154,6 +152,7 @@ public class InitialScreen extends AppCompatActivity {
                 i4.setLayoutParams(params4);
             }
         });
+
         i1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -281,6 +280,8 @@ public class InitialScreen extends AppCompatActivity {
 
         @Override
         protected String doInBackground(String... strings) {
+
+            fAuth = FirebaseAuth.getInstance();
 //            start_service();
             //start_notif_service();
 //            init();

@@ -5,7 +5,7 @@
     android:id="@+id/activity_initial_screen"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/colorAccent"
     tools:context="kdas.i_nterface.locusreverb.InitialScreen">
 
     <!--<android.support.design.widget.FloatingActionButton-->
@@ -105,12 +105,12 @@
         android:layout_height="100dp"
         android:background="@color/transparent"
         app:srcCompat="@drawable/init"
-        android:layout_gravity="center"
+        android:layout_gravity="top|center_horizontal"
         android:id="@+id/imageButton"
         android:scaleType="fitXY"
         android:maxHeight="100dp"
         android:maxWidth="100dp"
-        android:visibility="invisible"
+        android:visibility="visible"
         android:elevation="14dp" />
 
     <ImageButton
@@ -156,10 +156,10 @@
                 <!--android:layout_height="wrap_content" />-->
 
             <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:srcCompat="@drawable/a_14"
-                app:arc_angle="30"
+                android:layout_width="140dp"
+                android:layout_height="140dp"
+                app:srcCompat="@drawable/memories"
+                android:id="@+id/memories_btn"
                 android:background="@color/transparent"
                 android:layout_gravity="center"
                 android:visibility="visible" />
@@ -173,36 +173,80 @@
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:srcCompat="@drawable/a_13"
+                app:srcCompat="@drawable/peers"
+                android:id="@+id/peers_btn"
                 android:background="@color/transparent"
                 android:layout_gravity="center" />
 
-            <android.support.design.widget.FloatingActionButton
-                app:srcCompat="@drawable/done_w"
-                android:textColor="@color/green_grass"
-                app:arc_angle="90"
+            <!--<android.support.design.widget.FloatingActionButton-->
+                <!--app:srcCompat="@drawable/done_w"-->
+                <!--android:textColor="@color/green_grass"-->
+                <!--app:arc_angle="90"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content" />-->
+
+            <ImageButton
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/location"
+                android:background="@color/transparent"
+                android:layout_gravity="center" />
+
+            <!--<android.support.design.widget.FloatingActionButton-->
+                <!--app:srcCompat="@drawable/done_w"-->
+                <!--android:textColor="@color/yellow_2"-->
+                <!--app:arc_angle="120"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content" />-->
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/transparent"
+                app:srcCompat="@drawable/ping_peer"
+                android:layout_gravity="center" />
+
+            <!--<android.support.design.widget.FloatingActionButton-->
+                <!--app:srcCompat="@drawable/done_w"-->
+                <!--android:textColor="@color/some_red"-->
+                <!--app:arc_angle="150"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content" />-->
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/transparent"
+                app:srcCompat="@drawable/settings"
+                android:layout_gravity="center" />
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/transparent"
+                app:srcCompat="@drawable/profile"
+                android:layout_gravity="center" />
 
             <android.support.design.widget.FloatingActionButton
-                app:srcCompat="@drawable/done_w"
-                android:textColor="@color/yellow_2"
-                app:arc_angle="120"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <android.support.design.widget.FloatingActionButton
-                app:srcCompat="@drawable/done_w"
+                app:srcCompat="@drawable/memories"
                 android:textColor="@color/some_red"
-                app:arc_angle="150"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"/>
+
+            <com.mikhaellopez.circularimageview.CircularImageView
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:id="@+id/pro"
+                android:background="@drawable/summer"
+                app:civ_border_width="0dp"
+                app:civ_border_color="#FFFFFF"
+                app:civ_shadow_color="#8BC34A"/>
 
         </com.ogaclejapan.arclayout.ArcLayout>
     </FrameLayout>
     <ImageButton
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:background="@color/transparent"
         app:srcCompat="@drawable/init"
         android:layout_gravity="center"
@@ -210,8 +254,7 @@
         android:scaleType="fitXY"
         android:maxHeight="100dp"
         android:maxWidth="100dp"
-        android:visibility="visible"
-        android:elevation="14dp" />
+        android:visibility="visible"/>
 
 
 </FrameLayout>
