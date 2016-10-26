@@ -1,13 +1,11 @@
 package kdas.i_nterface.locusreverb;
 
-import android.app.ActivityOptions;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
@@ -15,6 +13,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -39,9 +38,12 @@ public class Init extends AppCompatActivity {
     CardView card;
     RelativeLayout background;
     FirebaseAuth fAuth;
-    FirebaseUser user;
+    FirebaseUser user, temp;
 
     FloatingActionButton reg;
+    ImageView no;
+
+    boolean user_ase = false;
 
     SharedPreferences sharedPreferences;
 
@@ -58,20 +60,34 @@ public class Init extends AppCompatActivity {
         initPass = (EditText)findViewById(R.id.password);
         done = (FloatingActionButton) findViewById(R.id.signup);
         backhome = (FloatingActionButton)findViewById(R.id.floatingActionButton);
+        no = (ImageView)findViewById(R.id.imageView9);
+
+        temp = fAuth.getCurrentUser();
+        try {
+            if (temp != null){
+                user_ase = true;
+                Snackbar.make(background, "Already Signed-In,\nYou high bro ?", Snackbar.LENGTH_LONG).show();
+            }
+        }catch (NullPointerException e){
+            e.printStackTrace();
+        }
 
 //        final ElasticDownloadView elasticDownloadView = (ElasticDownloadView)findViewById(R.id.elasticProgress);
 //        elasticDownloadView.setVisibility(View.INVISIBLE);
         backhome.setVisibility(View.INVISIBLE);
 
         done.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onClick(View view) {
-                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(Init.this, done, done.getTransitionName());
                 String email, pass;
 
                 email = initEmail.getText().toString().trim();
                 pass = initPass.getText().toString().trim();
+
+                if (user_ase){
+                    Snackbar.make(background, "Already Signed-In,\nYou high bro ?", Snackbar.LENGTH_LONG).show();
+                    no.setVisibility(View.VISIBLE);
+                }
 
                 if (TextUtils.isEmpty(email)) {
                     Toast.makeText(getApplicationContext(), "Enter email", Toast.LENGTH_LONG).show();

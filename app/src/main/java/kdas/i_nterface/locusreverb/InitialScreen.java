@@ -8,33 +8,31 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnticipateInterpolator;
 import android.view.animation.OvershootInterpolator;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.ogaclejapan.arclayout.ArcLayout;
-import com.transitionseverywhere.ArcMotion;
-import com.transitionseverywhere.ChangeBounds;
-import com.transitionseverywhere.TransitionManager;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class InitialScreen extends AppCompatActivity {
+public class InitialScreen extends AppCompatActivity implements View.OnClickListener{
 
     ImageButton center, i1, i2, i3, i4;
 
     ImageButton fab;
     FrameLayout menuLayout;
     ArcLayout arcLayout;
+    FloatingActionButton mem, peers, loc, peer_ping, profile, settings;
 
     FirebaseAuth fAuth;
 
@@ -45,144 +43,160 @@ public class InitialScreen extends AppCompatActivity {
 
         final ViewGroup transitionsContainer = (ViewGroup)findViewById(R.id.activity_initial_screen);
 
-        center = (ImageButton)findViewById(R.id.imageButton);
-        i1 = (ImageButton)findViewById(R.id.imageButton2);
-        i2 = (ImageButton)findViewById(R.id.imageButton3);
-        i3 = (ImageButton)findViewById(R.id.i3);
-        i4 = (ImageButton)findViewById(R.id.i4);
+//        center = (ImageButton)findViewById(R.id.imageButton);
+//        i1 = (ImageButton)findViewById(R.id.imageButton2);
+//        i2 = (ImageButton)findViewById(R.id.imageButton3);
+//        i3 = (ImageButton)findViewById(R.id.i3);
+//        i4 = (ImageButton)findViewById(R.id.i4);
 
-        fab = (ImageButton)findViewById(R.id.fab);
+        fab = (ImageButton)findViewById(R.id.fabcenter);
         menuLayout = (FrameLayout) findViewById(R.id.menu_layout);
         arcLayout = (ArcLayout) findViewById(R.id.arc_layout);
+
+        mem = (FloatingActionButton)findViewById(R.id.memories_btn);
+        mem.setOnClickListener(this);
+        peers = (FloatingActionButton)findViewById(R.id.peers_btn);
+        peers.setOnClickListener(this);
+        loc = (FloatingActionButton)findViewById(R.id.location_btn);
+        loc.setOnClickListener(this);
+        peer_ping = (FloatingActionButton)findViewById(R.id.peer_ping_btn);
+        peer_ping.setOnClickListener(this);
+        profile = (FloatingActionButton)findViewById(R.id.profile);
+        profile.setOnClickListener(this);
+        settings = (FloatingActionButton)findViewById(R.id.settings);
+        settings.setOnClickListener(this);
+
+
+        fab.setOnClickListener(this);
 
 //        for (int i = 0, size = arcLayout.getChildCount(); i < size; i++) {
 //            arcLayout.getChildAt(i).setOnClickListener(this);
 //        }
 
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onFabClick(view);
-            }
-        });
-
-
-        center.setOnClickListener(new View.OnClickListener() {
-
-            boolean mToRightAnimation;
-            @Override
-            public void onClick(View view) {
-
-                TransitionManager.beginDelayedTransition(transitionsContainer,
-                        new ChangeBounds().setPathMotion(new ArcMotion()).setDuration(500));
-
-
-
-                i1.setVisibility(View.VISIBLE);
-                i2.setVisibility(View.VISIBLE);
-                i3.setVisibility(View.VISIBLE);
-                i4.setVisibility(View.VISIBLE);
-
-                mToRightAnimation = !mToRightAnimation;
-                FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) center.getLayoutParams();
-                params.gravity = mToRightAnimation ? (Gravity.CENTER | Gravity.BOTTOM) :
-                        (Gravity.CENTER | Gravity.TOP);
-
-                FrameLayout.LayoutParams params1 = (FrameLayout.LayoutParams) i1.getLayoutParams();
-                params1.topMargin = mToRightAnimation ? 150 : 0;
-                params1.rightMargin = mToRightAnimation ? 80 : 0;
-                params1.gravity = mToRightAnimation ? (Gravity.END | Gravity.TOP) :
-                        (Gravity.CENTER);
-                if (!mToRightAnimation){
-                    i1.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            i1.setVisibility(View.INVISIBLE);
-                        }
-                    }, 500);
-                }
-
-                FrameLayout.LayoutParams params2 = (FrameLayout.LayoutParams) i2.getLayoutParams();
-                params2.topMargin = mToRightAnimation ? 150 : 0;
-                params2.leftMargin= mToRightAnimation ? 80 : 0;
-                params2.gravity = mToRightAnimation ? (Gravity.START | Gravity.TOP) :
-                        (Gravity.CENTER);
-                if (!mToRightAnimation){
-                    i2.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            i2.setVisibility(View.INVISIBLE);
-                        }
-                    }, 500);
-                }
-
-                FrameLayout.LayoutParams params3 = (FrameLayout.LayoutParams) i3.getLayoutParams();
-                params3.bottomMargin = mToRightAnimation ? 150 : 0;
-                params3.rightMargin= mToRightAnimation ? 80 : 0;
-                params3.gravity = mToRightAnimation ? (Gravity.END | Gravity.BOTTOM) :
-                        (Gravity.CENTER);
-                if (!mToRightAnimation){
-                    i3.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            i3.setVisibility(View.INVISIBLE);
-                        }
-                    }, 400);
-                }
-
-                FrameLayout.LayoutParams params4 = (FrameLayout.LayoutParams) i4.getLayoutParams();
-                params4.bottomMargin = mToRightAnimation ? 150 : 0;
-                params4.leftMargin= mToRightAnimation ? 80 : 0;
-                params4.gravity = mToRightAnimation ? (Gravity.START | Gravity.BOTTOM) :
-                        (Gravity.CENTER);
-                if (!mToRightAnimation){
-                    i4.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            i4.setVisibility(View.INVISIBLE);
-                        }
-                    }, 400);
-                }
-
-
-                center.setLayoutParams(params);
-                i1.setLayoutParams(params1);
-                i2.setLayoutParams(params2);
-                i3.setLayoutParams(params3);
-                i4.setLayoutParams(params4);
-            }
-        });
-
-        i1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(InitialScreen.this, ContactsActivity.class));
-                Log.d("CLICKED", "CLICK");
-            }
-        });
-
-        i2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(InitialScreen.this, Memories.class));
-                Toast.makeText(getApplicationContext(), "DOEN DONE ", Toast.LENGTH_LONG).show();
-                Log.d("Con", "Con");
-            }
-        });
-
-        i3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(InitialScreen.this, PeersActiviy.class));
-            }
-        });
-
-        i4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(InitialScreen.this, PingActivity.class));
-            }
-        });
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                onFabClick(view);
+//            }
+//        });
+//
+//
+//        center.setOnClickListener(new View.OnClickListener() {
+//
+//            boolean mToRightAnimation;
+//            @Override
+//            public void onClick(View view) {
+//
+//                TransitionManager.beginDelayedTransition(transitionsContainer,
+//                        new ChangeBounds().setPathMotion(new ArcMotion()).setDuration(500));
+//
+//
+//
+//                i1.setVisibility(View.VISIBLE);
+//                i2.setVisibility(View.VISIBLE);
+//                i3.setVisibility(View.VISIBLE);
+//                i4.setVisibility(View.VISIBLE);
+//
+//                mToRightAnimation = !mToRightAnimation;
+//                FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) center.getLayoutParams();
+//                params.gravity = mToRightAnimation ? (Gravity.CENTER | Gravity.BOTTOM) :
+//                        (Gravity.CENTER | Gravity.TOP);
+//
+//                FrameLayout.LayoutParams params1 = (FrameLayout.LayoutParams) i1.getLayoutParams();
+//                params1.topMargin = mToRightAnimation ? 150 : 0;
+//                params1.rightMargin = mToRightAnimation ? 80 : 0;
+//                params1.gravity = mToRightAnimation ? (Gravity.END | Gravity.TOP) :
+//                        (Gravity.CENTER);
+//                if (!mToRightAnimation){
+//                    i1.postDelayed(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            i1.setVisibility(View.INVISIBLE);
+//                        }
+//                    }, 500);
+//                }
+//
+//                FrameLayout.LayoutParams params2 = (FrameLayout.LayoutParams) i2.getLayoutParams();
+//                params2.topMargin = mToRightAnimation ? 150 : 0;
+//                params2.leftMargin= mToRightAnimation ? 80 : 0;
+//                params2.gravity = mToRightAnimation ? (Gravity.START | Gravity.TOP) :
+//                        (Gravity.CENTER);
+//                if (!mToRightAnimation){
+//                    i2.postDelayed(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            i2.setVisibility(View.INVISIBLE);
+//                        }
+//                    }, 500);
+//                }
+//
+//                FrameLayout.LayoutParams params3 = (FrameLayout.LayoutParams) i3.getLayoutParams();
+//                params3.bottomMargin = mToRightAnimation ? 150 : 0;
+//                params3.rightMargin= mToRightAnimation ? 80 : 0;
+//                params3.gravity = mToRightAnimation ? (Gravity.END | Gravity.BOTTOM) :
+//                        (Gravity.CENTER);
+//                if (!mToRightAnimation){
+//                    i3.postDelayed(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            i3.setVisibility(View.INVISIBLE);
+//                        }
+//                    }, 400);
+//                }
+//
+//                FrameLayout.LayoutParams params4 = (FrameLayout.LayoutParams) i4.getLayoutParams();
+//                params4.bottomMargin = mToRightAnimation ? 150 : 0;
+//                params4.leftMargin= mToRightAnimation ? 80 : 0;
+//                params4.gravity = mToRightAnimation ? (Gravity.START | Gravity.BOTTOM) :
+//                        (Gravity.CENTER);
+//                if (!mToRightAnimation){
+//                    i4.postDelayed(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            i4.setVisibility(View.INVISIBLE);
+//                        }
+//                    }, 400);
+//                }
+//
+//
+//                center.setLayoutParams(params);
+//                i1.setLayoutParams(params1);
+//                i2.setLayoutParams(params2);
+//                i3.setLayoutParams(params3);
+//                i4.setLayoutParams(params4);
+//            }
+//        });
+//
+//        i1.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                startActivity(new Intent(InitialScreen.this, ContactsActivity.class));
+//                Log.d("CLICKED", "CLICK");
+//            }
+//        });
+//
+//        i2.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                startActivity(new Intent(InitialScreen.this, Memories.class));
+//                Toast.makeText(getApplicationContext(), "DOEN DONE ", Toast.LENGTH_LONG).show();
+//                Log.d("Con", "Con");
+//            }
+//        });
+//
+//        i3.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                startActivity(new Intent(InitialScreen.this, PeersActiviy.class));
+//            }
+//        });
+//
+//        i4.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                startActivity(new Intent(InitialScreen.this, PingActivity.class));
+//            }
+//        });
 
         new do_stuff().execute("");
     }
@@ -206,7 +220,7 @@ public class InitialScreen extends AppCompatActivity {
         }
 
         AnimatorSet animSet = new AnimatorSet();
-        animSet.setDuration(400);
+        animSet.setDuration(600);
         animSet.setInterpolator(new OvershootInterpolator());
         animSet.playTogether(animList);
         animSet.start();
@@ -220,7 +234,7 @@ public class InitialScreen extends AppCompatActivity {
         }
 
         AnimatorSet animSet = new AnimatorSet();
-        animSet.setDuration(400);
+        animSet.setDuration(600);
         animSet.setInterpolator(new AnticipateInterpolator());
         animSet.playTogether(animList);
         animSet.addListener(new AnimatorListenerAdapter() {
@@ -245,7 +259,7 @@ public class InitialScreen extends AppCompatActivity {
 
         Animator anim = ObjectAnimator.ofPropertyValuesHolder(
                 item,
-                AnimatorUtils.rotation(0f, 720f),
+                AnimatorUtils.rotation(0f, 0f),                 // using numerical deg as F's 180f -> full matata
                 AnimatorUtils.translationX(dx, 0f),
                 AnimatorUtils.translationY(dy, 0f)
         );
@@ -259,7 +273,7 @@ public class InitialScreen extends AppCompatActivity {
 
         Animator anim = ObjectAnimator.ofPropertyValuesHolder(
                 item,
-                AnimatorUtils.rotation(720f, 0f),
+                AnimatorUtils.rotation(0f, 0f),
                 AnimatorUtils.translationX(0f, dx),
                 AnimatorUtils.translationY(0f, dy)
         );
@@ -274,6 +288,47 @@ public class InitialScreen extends AppCompatActivity {
         });
 
         return anim;
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+
+            case R.id.fabcenter : {
+                onFabClick(view);
+                break;
+            }
+
+            case R.id.memories_btn : {
+                startActivity(new Intent(InitialScreen.this, Memories.class));
+                break;
+            }
+
+            case R.id.location_btn : {
+                Snackbar.make(view, "not migrated yet, bro", Snackbar.LENGTH_LONG).show();
+                break;
+            }
+
+            case R.id.peer_ping_btn : {
+                Snackbar.make(view, "Yup, still not done", Snackbar.LENGTH_LONG).show();
+                break;
+            }
+
+            case R.id.peers_btn : {
+                startActivity(new Intent(InitialScreen.this, PeersActiviy.class ));
+                break;
+            }
+
+            case R.id.profile : {
+                startActivity(new Intent(InitialScreen.this, Init.class));
+                break;
+            }
+
+            case R.id.settings : {
+                Snackbar.make(view, "yeah, I'm lazy, now bugger off", Snackbar.LENGTH_LONG).show();
+                break;
+            }
+        }
     }
 
     private class do_stuff extends AsyncTask<String, Void, String>{

@@ -14,6 +14,13 @@
     <color name="green">#2fa881</color>
     <color name="green_grass">#2fa881</color>
 
+    <color name="purple">#7C4DFF</color>
+    <color name="red">#FF5252</color>
+    <color name="blue_grey">#607D8B</color>
+    <color name="cyan">#00BCD4</color>
+    <color name="orange">#FF9800</color>
+    <color name="light_green">#8BC34A</color>
+
     <color name="colorPrimary2">#3F51B5</color>
     <color name="colorPrimaryDark2">#03A9F4</color>
     <color name="colorAccent2">#039BE5</color>

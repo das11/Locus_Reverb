@@ -4,7 +4,6 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    android:background="@color/white"
     android:paddingTop="6dp"
     android:paddingBottom="15dp"
     android:paddingLeft="6dp"

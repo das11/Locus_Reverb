@@ -5,7 +5,7 @@
     android:id="@+id/activity_initial_screen"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorAccent"
+    android:background="@color/colorPrimaryDark"
     tools:context="kdas.i_nterface.locusreverb.InitialScreen">
 
     <!--<android.support.design.widget.FloatingActionButton-->
@@ -20,116 +20,116 @@
         <!--android:id="@+id/floatingActionButton" />-->
 
 
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/a_13"
-        android:background="@color/transparent"
-        android:layout_gravity="center"
-        android:id="@+id/imageButton2"
-        android:visibility="invisible" />
+    <!--<ImageButton-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--app:srcCompat="@drawable/a_13"-->
+        <!--android:background="@color/transparent"-->
+        <!--android:layout_gravity="center"-->
+        <!--android:id="@+id/imageButton2"-->
+        <!--android:visibility="invisible" />-->
 
-    <!--<com.mikhaellopez.circularimageview.CircularImageView-->
+    <!--&lt;!&ndash;<com.mikhaellopez.circularimageview.CircularImageView&ndash;&gt;-->
+        <!--&lt;!&ndash;android:layout_width="100dp"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:layout_height="100dp"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:src="@mipmap/ic_launcher"&ndash;&gt;-->
+        <!--&lt;!&ndash;app:civ_border="true"&ndash;&gt;-->
+        <!--&lt;!&ndash;app:civ_border_color="#000000"&ndash;&gt;-->
+        <!--&lt;!&ndash;app:civ_border_width="2dp" />&ndash;&gt;-->
+
+    <!--&lt;!&ndash;<android.support.v7.widget.CardView&ndash;&gt;-->
+        <!--&lt;!&ndash;android:layout_width="100dp"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:layout_height="100dp"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:id="@+id/i3"&ndash;&gt;-->
+        <!--&lt;!&ndash;app:cardCornerRadius="8dp"&ndash;&gt;-->
+        <!--&lt;!&ndash;app:cardElevation="12dp"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:layout_gravity="center"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:visibility="visible">&ndash;&gt;-->
+
+        <!--&lt;!&ndash;<RelativeLayout&ndash;&gt;-->
+            <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:background="@color/blue_white"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:layout_marginBottom="40dp">&ndash;&gt;-->
+
+            <!--&lt;!&ndash;<ImageView&ndash;&gt;-->
+                <!--&lt;!&ndash;android:layout_width="100dp"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:layout_height="match_parent"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:layout_centerHorizontal="true"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:paddingBottom="10dp"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:paddingTop="10dp"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:src="@drawable/a_13"/>&ndash;&gt;-->
+
+        <!--&lt;!&ndash;</RelativeLayout>&ndash;&gt;-->
+
+    <!--&lt;!&ndash;</android.support.v7.widget.CardView>&ndash;&gt;-->
+
+    <!--&lt;!&ndash;<android.support.v7.widget.CardView&ndash;&gt;-->
+        <!--&lt;!&ndash;android:layout_width="140dp"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:layout_height="160dp"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:id="@+id/i4"&ndash;&gt;-->
+        <!--&lt;!&ndash;app:cardCornerRadius="8dp"&ndash;&gt;-->
+        <!--&lt;!&ndash;app:cardElevation="12dp"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:layout_gravity="center"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:visibility="invisible">&ndash;&gt;-->
+
+        <!--&lt;!&ndash;<RelativeLayout&ndash;&gt;-->
+            <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:background="@color/some_teal2"&ndash;&gt;-->
+            <!--&lt;!&ndash;android:layout_marginBottom="40dp">&ndash;&gt;-->
+
+            <!--&lt;!&ndash;<ImageView&ndash;&gt;-->
+                <!--&lt;!&ndash;android:layout_width="100dp"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:layout_height="140dp"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:layout_centerHorizontal="true"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:paddingBottom="10dp"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:paddingTop="10dp"&ndash;&gt;-->
+                <!--&lt;!&ndash;android:src="@drawable/ping_route"/>&ndash;&gt;-->
+
+        <!--&lt;!&ndash;</RelativeLayout>&ndash;&gt;-->
+
+    <!--&lt;!&ndash;</android.support.v7.widget.CardView>&ndash;&gt;-->
+
+    <!--<ImageButton-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--app:srcCompat="@drawable/a_14"-->
+        <!--android:background="@color/transparent"-->
+        <!--android:layout_gravity="center"-->
+        <!--android:id="@+id/imageButton3"-->
+        <!--android:visibility="invisible" />-->
+
+    <!--<ImageButton-->
         <!--android:layout_width="100dp"-->
         <!--android:layout_height="100dp"-->
-        <!--android:src="@mipmap/ic_launcher"-->
-        <!--app:civ_border="true"-->
-        <!--app:civ_border_color="#000000"-->
-        <!--app:civ_border_width="2dp" />-->
+        <!--android:background="@color/transparent"-->
+        <!--app:srcCompat="@drawable/init"-->
+        <!--android:layout_gravity="top|center_horizontal"-->
+        <!--android:id="@+id/imageButton"-->
+        <!--android:scaleType="fitXY"-->
+        <!--android:maxHeight="100dp"-->
+        <!--android:maxWidth="100dp"-->
+        <!--android:visibility="invisible"-->
+        <!--android:elevation="14dp" />-->
 
-    <!--<android.support.v7.widget.CardView-->
-        <!--android:layout_width="100dp"-->
-        <!--android:layout_height="100dp"-->
+    <!--<ImageButton-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--app:srcCompat="@drawable/a_11"-->
+        <!--android:background="@color/transparent"-->
         <!--android:id="@+id/i3"-->
-        <!--app:cardCornerRadius="8dp"-->
-        <!--app:cardElevation="12dp"-->
-        <!--android:layout_gravity="center"-->
-        <!--android:visibility="visible">-->
+        <!--android:visibility="invisible"-->
+        <!--android:layout_gravity="center" />-->
 
-        <!--<RelativeLayout-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:background="@color/blue_white"-->
-            <!--android:layout_marginBottom="40dp">-->
-
-            <!--<ImageView-->
-                <!--android:layout_width="100dp"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:layout_centerHorizontal="true"-->
-                <!--android:paddingBottom="10dp"-->
-                <!--android:paddingTop="10dp"-->
-                <!--android:src="@drawable/a_13"/>-->
-
-        <!--</RelativeLayout>-->
-
-    <!--</android.support.v7.widget.CardView>-->
-
-    <!--<android.support.v7.widget.CardView-->
-        <!--android:layout_width="140dp"-->
-        <!--android:layout_height="160dp"-->
+    <!--<ImageButton-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:background="@color/transparent"-->
+        <!--app:srcCompat="@drawable/ping_route"-->
         <!--android:id="@+id/i4"-->
-        <!--app:cardCornerRadius="8dp"-->
-        <!--app:cardElevation="12dp"-->
-        <!--android:layout_gravity="center"-->
-        <!--android:visibility="invisible">-->
-
-        <!--<RelativeLayout-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:background="@color/some_teal2"-->
-            <!--android:layout_marginBottom="40dp">-->
-
-            <!--<ImageView-->
-                <!--android:layout_width="100dp"-->
-                <!--android:layout_height="140dp"-->
-                <!--android:layout_centerHorizontal="true"-->
-                <!--android:paddingBottom="10dp"-->
-                <!--android:paddingTop="10dp"-->
-                <!--android:src="@drawable/ping_route"/>-->
-
-        <!--</RelativeLayout>-->
-
-    <!--</android.support.v7.widget.CardView>-->
-
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/a_14"
-        android:background="@color/transparent"
-        android:layout_gravity="center"
-        android:id="@+id/imageButton3"
-        android:visibility="invisible" />
-
-    <ImageButton
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:background="@color/transparent"
-        app:srcCompat="@drawable/init"
-        android:layout_gravity="top|center_horizontal"
-        android:id="@+id/imageButton"
-        android:scaleType="fitXY"
-        android:maxHeight="100dp"
-        android:maxWidth="100dp"
-        android:visibility="visible"
-        android:elevation="14dp" />
-
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/a_11"
-        android:background="@color/transparent"
-        android:id="@+id/i3"
-        android:visibility="invisible"
-        android:layout_gravity="center" />
-
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@color/transparent"
-        app:srcCompat="@drawable/ping_route"
-        android:id="@+id/i4"
-        android:visibility="invisible"
-        android:layout_gravity="center" />
+        <!--android:visibility="invisible"-->
+        <!--android:layout_gravity="center" />-->
 
     <FrameLayout
         android:id="@+id/menu_layout"
@@ -142,105 +142,223 @@
             android:id="@+id/arc_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:arc_axisRadius="130dp"
+            app:arc_axisRadius="120dp"
             app:arc_freeAngle="false"
             app:arc_origin="center"
             app:arc_radius="160dp"
             >
 
-            <!--<android.support.design.widget.FloatingActionButton-->
-                <!--app:srcCompat="@drawable/done_w"-->
-                <!--android:textColor="@color/blue"-->
-                <!--app:arc_angle="30"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content" />-->
+            <!--<com.mikhaellopez.circularimageview.CircularImageView-->
+                <!--android:layout_width="55dp"-->
+                <!--android:layout_height="55dp"-->
+                <!--android:id="@+id/memories_btn"-->
+                <!--android:background="@drawable/memories"-->
+                <!--app:civ_border_width="2dp"-->
+                <!--app:civ_border_color="@color/some_red"-->
+                <!--app:civ_shadow_color="#8BC34A"/>-->
 
-            <ImageButton
-                android:layout_width="140dp"
-                android:layout_height="140dp"
-                app:srcCompat="@drawable/memories"
-                android:id="@+id/memories_btn"
-                android:background="@color/transparent"
-                android:layout_gravity="center"
-                android:visibility="visible" />
-
-            <!--<android.support.design.widget.FloatingActionButton-->
-                <!--app:srcCompat="@drawable/done_w"-->
-                <!--android:textColor="@color/green"-->
-                <!--app:arc_angle="60"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content" />-->
-            <ImageButton
+            <RelativeLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:srcCompat="@drawable/peers"
-                android:id="@+id/peers_btn"
-                android:background="@color/transparent"
-                android:layout_gravity="center" />
-
-            <!--<android.support.design.widget.FloatingActionButton-->
-                <!--app:srcCompat="@drawable/done_w"-->
-                <!--android:textColor="@color/green_grass"-->
-                <!--app:arc_angle="90"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content" />-->
-
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:srcCompat="@drawable/location"
-                android:background="@color/transparent"
-                android:layout_gravity="center" />
-
-            <!--<android.support.design.widget.FloatingActionButton-->
-                <!--app:srcCompat="@drawable/done_w"-->
-                <!--android:textColor="@color/yellow_2"-->
-                <!--app:arc_angle="120"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content" />-->
-
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@color/transparent"
-                app:srcCompat="@drawable/ping_peer"
-                android:layout_gravity="center" />
-
-            <!--<android.support.design.widget.FloatingActionButton-->
-                <!--app:srcCompat="@drawable/done_w"-->
-                <!--android:textColor="@color/some_red"-->
-                <!--app:arc_angle="150"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content" />-->
-
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@color/transparent"
-                app:srcCompat="@drawable/settings"
-                android:layout_gravity="center" />
-
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@color/transparent"
-                app:srcCompat="@drawable/profile"
-                android:layout_gravity="center" />
+                android:layout_height="wrap_content">
 
             <android.support.design.widget.FloatingActionButton
-                app:srcCompat="@drawable/memories"
-                android:textColor="@color/some_red"
+                app:srcCompat="@drawable/peers_new"
+                android:id="@+id/peers_btn"
+                app:fabSize="normal"
+                android:layout_margin="6dp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                app:backgroundTint="@color/red"
+                app:elevation="12dp" />
 
-            <com.mikhaellopez.circularimageview.CircularImageView
-                android:layout_width="75dp"
-                android:layout_height="75dp"
-                android:id="@+id/pro"
-                android:background="@drawable/summer"
-                app:civ_border_width="0dp"
-                app:civ_border_color="#FFFFFF"
-                app:civ_shadow_color="#8BC34A"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/peers_btn"
+                    android:text="Hello"
+                    android:layout_centerHorizontal="true"
+                    android:textColor="@color/green_grass"
+                    android:visibility="invisible" />
+
+            </RelativeLayout>
+
+            <!--<com.mikhaellopez.circularimageview.CircularImageView-->
+                <!--android:layout_width="55dp"-->
+                <!--android:layout_height="55dp"-->
+                <!--android:id="@+id/peers_btn"-->
+                <!--android:background="@drawable/peers"-->
+                <!--app:civ_border_width="0dp"-->
+                <!--app:civ_border_color="#FFFFFF"-->
+                <!--app:civ_shadow_color="#8BC34A"/>-->
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+            <android.support.design.widget.FloatingActionButton
+                app:srcCompat="@drawable/location_new"
+                android:id="@+id/location_btn"
+                app:fabSize="normal"
+                android:layout_margin="6dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:backgroundTint="@color/light_green"
+                app:elevation="12dp" />
+
+                <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/location_btn"
+                android:text="Hello"
+                android:layout_centerHorizontal="true"
+                android:textColor="@color/green_grass"
+                    android:visibility="invisible" />
+
+            </RelativeLayout>
+
+            <!--<com.mikhaellopez.circularimageview.CircularImageView-->
+                <!--android:layout_width="55dp"-->
+                <!--android:layout_height="55dp"-->
+                <!--android:id="@+id/location_btn"-->
+                <!--android:background="@drawable/location"-->
+                <!--app:civ_border_width="0dp"-->
+                <!--app:civ_border_color="#FFFFFF"-->
+                <!--app:civ_shadow_color="#8BC34A"/>-->
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+            <android.support.design.widget.FloatingActionButton
+                app:srcCompat="@drawable/peer_ping"
+                android:id="@+id/peer_ping_btn"
+                android:layout_margin="6dp"
+                app:fabSize="normal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:backgroundTint="@color/orange"
+                app:elevation="12dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/peer_ping_btn"
+                    android:text="Hello"
+                    android:layout_centerHorizontal="true"
+                    android:textColor="@color/green_grass"
+                    android:visibility="invisible" />
+
+            </RelativeLayout>
+
+            <!--<com.mikhaellopez.circularimageview.CircularImageView-->
+                <!--android:layout_width="55dp"-->
+                <!--android:layout_height="55dp"-->
+                <!--android:id="@+id/ping_peer_btn"-->
+                <!--android:background="@drawable/ping_peer"-->
+                <!--app:civ_border_width="0dp"-->
+                <!--app:civ_border_color="#FFFFFF"-->
+                <!--app:civ_shadow_color="#8BC34A"/>-->
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+            <android.support.design.widget.FloatingActionButton
+                app:srcCompat="@drawable/profile_new"
+                android:id="@+id/profile"
+                android:layout_margin="6dp"
+                app:fabSize="normal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:backgroundTint="@color/blue_grey"
+                app:elevation="12dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/profile"
+                    android:text="Hello"
+                    android:layout_centerHorizontal="true"
+                    android:textColor="@color/green_grass"
+                    android:visibility="invisible" />
+            </RelativeLayout>
+
+            <RelativeLayout
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <android.support.design.widget.FloatingActionButton
+                    app:srcCompat="@drawable/settings_new"
+                    android:id="@+id/settings"
+                    android:layout_margin="6dp"
+                    app:fabSize="normal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:backgroundTint="@color/cyan"
+                    app:elevation="12dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/settings"
+                    android:text="Hello"
+                    android:layout_centerHorizontal="true"
+                    android:textColor="@color/green_grass"
+                    android:visibility="invisible" />
+            </RelativeLayout>
+
+            <!--<com.mikhaellopez.circularimageview.CircularImageView-->
+                <!--android:layout_width="55dp"-->
+                <!--android:layout_height="55dp"-->
+                <!--android:id="@+id/settings"-->
+                <!--android:background="@drawable/settings"-->
+                <!--app:civ_border_width="0dp"-->
+                <!--app:civ_border_color="#FFFFFF"-->
+                <!--app:civ_shadow_color="#8BC34A"/>-->
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <android.support.design.widget.FloatingActionButton
+                    app:srcCompat="@drawable/memories_new"
+                    android:layout_margin="6dp"
+                    app:fabSize="normal"
+                    android:id="@+id/memories_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:backgroundTint="@color/purple"
+                    app:elevation="12dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/memories_btn"
+                    android:text="Hello"
+                    android:layout_centerHorizontal="true"
+                    android:textColor="@color/green_grass"
+                    android:visibility="invisible" />
+
+            </RelativeLayout>
+
+            <!--<com.mikhaellopez.circularimageview.CircularImageView-->
+                <!--android:layout_width="55dp"-->
+                <!--android:layout_height="55dp"-->
+                <!--android:id="@+id/profile_btn"-->
+                <!--android:background="@drawable/profile"-->
+                <!--app:civ_border_width="0dp"-->
+                <!--app:civ_border_color="#FFFFFF"-->
+                <!--app:civ_shadow_color="#8BC34A"/>-->
+
+
+            <!--<com.mikhaellopez.circularimageview.CircularImageView-->
+                <!--android:layout_width="55dp"-->
+                <!--android:layout_height="55dp"-->
+                <!--android:id="@+id/pro"-->
+                <!--android:background="@drawable/summer"-->
+                <!--app:civ_border_width="0dp"-->
+                <!--app:civ_border_color="#FFFFFF"-->
+                <!--app:civ_shadow_color="#8BC34A"/>-->
 
         </com.ogaclejapan.arclayout.ArcLayout>
     </FrameLayout>
@@ -250,7 +368,7 @@
         android:background="@color/transparent"
         app:srcCompat="@drawable/init"
         android:layout_gravity="center"
-        android:id="@+id/fab"
+        android:id="@+id/fabcenter"
         android:scaleType="fitXY"
         android:maxHeight="100dp"
         android:maxWidth="100dp"
