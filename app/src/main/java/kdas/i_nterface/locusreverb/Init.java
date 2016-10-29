@@ -25,6 +25,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import is.arontibo.library.ElasticDownloadView;
+
 //import is.arontibo.library.ElasticDownloadView;
 
 public class Init extends AppCompatActivity {
@@ -35,7 +37,7 @@ public class Init extends AppCompatActivity {
 
     EditText initEmail, initPass;
     FloatingActionButton done, backhome;
-    CardView card;
+    CardView card, cv;
     RelativeLayout background;
     FirebaseAuth fAuth;
     FirebaseUser user, temp;
@@ -62,6 +64,8 @@ public class Init extends AppCompatActivity {
         backhome = (FloatingActionButton)findViewById(R.id.floatingActionButton);
         no = (ImageView)findViewById(R.id.imageView9);
 
+        cv = (CardView)findViewById(R.id.cv);
+
         temp = fAuth.getCurrentUser();
         try {
             if (temp != null){
@@ -72,9 +76,10 @@ public class Init extends AppCompatActivity {
             e.printStackTrace();
         }
 
-//        final ElasticDownloadView elasticDownloadView = (ElasticDownloadView)findViewById(R.id.elasticProgress);
-//        elasticDownloadView.setVisibility(View.INVISIBLE);
+        final ElasticDownloadView elasticDownloadView = (ElasticDownloadView)findViewById(R.id.elasticProgress);
+        elasticDownloadView.setVisibility(View.INVISIBLE);
         backhome.setVisibility(View.INVISIBLE);
+
 
         done.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,6 +89,8 @@ public class Init extends AppCompatActivity {
                 email = initEmail.getText().toString().trim();
                 pass = initPass.getText().toString().trim();
 
+
+
                 if (user_ase){
                     Snackbar.make(background, "Already Signed-In,\nYou high bro ?", Snackbar.LENGTH_LONG).show();
                     no.setVisibility(View.VISIBLE);
@@ -91,27 +98,28 @@ public class Init extends AppCompatActivity {
 
                 if (TextUtils.isEmpty(email)) {
                     Toast.makeText(getApplicationContext(), "Enter email", Toast.LENGTH_LONG).show();
-//                    elasticDownloadView.fail();
+                    elasticDownloadView.fail();
                 }
 
                 if (TextUtils.isEmpty(pass)) {
                     Toast.makeText(getApplicationContext(), "Enter password or i'll beat you up!", Toast.LENGTH_LONG).show();
-//                    elasticDownloadView.fail();
+                    elasticDownloadView.fail();
                 }
                 else {
                     background.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.elasticbackground));
 
                     backhome.setVisibility(View.VISIBLE);
                     card.setVisibility(View.INVISIBLE);
-//                    elasticDownloadView.setVisibility(View.VISIBLE);
-//                    elasticDownloadView.startIntro();
-//                    elasticDownloadView.setProgress(30);
+                    cv.setVisibility(View.INVISIBLE);
+                    elasticDownloadView.setVisibility(View.VISIBLE);
+                    elasticDownloadView.startIntro();
+                    elasticDownloadView.setProgress(30);
 
                     fAuth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener(Init.this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (!task.isSuccessful()) {
-//                                elasticDownloadView.fail();
+                                elasticDownloadView.fail();
                                 Toast.makeText(Init.this, "Authentication failed." + task.getException(), Toast.LENGTH_SHORT).show();
                                 Log.d("Firebase Auth ::", task.getException() + "");
                             } else {
@@ -130,7 +138,7 @@ public class Init extends AppCompatActivity {
                                 inflate_firebase();
 
                                 Log.d("UID", uid + "");
-//                                elasticDownloadView.success();
+                                elasticDownloadView.success();
 
                             }
                         }
@@ -163,6 +171,10 @@ public class Init extends AppCompatActivity {
         DatabaseReference pinged_by = user_node.child("pinged_by");
         DatabaseReference contact_num = user_node.child("contact");
         DatabaseReference peers = user_node.child("friends");
+
+        //static failsafe
+        DatabaseReference peer_uid = peers.child("FpoXgENWxTV8spjM9SR6B9EwPdw1");
+        peer_uid.setValue("Kabir Das");
 
         DatabaseReference user_append = ROOT.child("users/" + uid);
         user_append.setValue(uid);

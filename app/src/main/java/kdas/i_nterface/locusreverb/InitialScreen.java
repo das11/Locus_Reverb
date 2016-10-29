@@ -10,6 +10,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.multidex.MultiDex;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -39,6 +40,7 @@ public class InitialScreen extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        MultiDex.install(this);
         setContentView(R.layout.activity_initial_screen);
 
         final ViewGroup transitionsContainer = (ViewGroup)findViewById(R.id.activity_initial_screen);
@@ -339,7 +341,7 @@ public class InitialScreen extends AppCompatActivity implements View.OnClickList
             fAuth = FirebaseAuth.getInstance();
 //            start_service();
             //start_notif_service();
-//            init();
+            //init();
 
 //            Intent i = new Intent(InitialScreen.this, Init.class);
 //            startActivity(i);
@@ -359,6 +361,7 @@ public class InitialScreen extends AppCompatActivity implements View.OnClickList
 
     public void init(){
         boolean init = false;
+
 
         SharedPreferences pref = getSharedPreferences("PREFS", MODE_PRIVATE);
 //        init = pref.getBoolean("Initialized", init);

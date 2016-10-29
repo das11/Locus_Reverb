@@ -10,6 +10,8 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -55,10 +57,11 @@ dependencies {
     compile 'com.ogaclejapan.arclayout:library:1.1.0@aar'
     compile 'com.mikhaellopez:circularimageview:3.0.2'
 
-
+    compile 'com.android.support:multidex:1.0.0'
     compile 'com.android.support:support-v4:24.2.1'
     compile 'com.android.support:recyclerview-v7:24.2.1'
     testCompile 'junit:junit:4.12'
+    compile 'com.google.android.gms:play-services-maps:9.6.1'
 }
 
 

@@ -64,6 +64,7 @@ public class PingActivity extends FragmentActivity implements OnMapReadyCallback
     boolean peer_fetch_location_bool = false;
     boolean build_query_bool = false;
     boolean camera_move_initial_bool = false;
+    boolean isPermission_boolean = false;
 
     DatabaseReference ROOT = FirebaseDatabase.getInstance().getReference();
     Location peer_location = new Location("");
@@ -91,6 +92,8 @@ public class PingActivity extends FragmentActivity implements OnMapReadyCallback
         loader = (com.wang.avi.AVLoadingIndicatorView)findViewById(R.id.avli);
         loading = (TextView)findViewById(R.id.textView3);
         loader.smoothToShow();
+
+        checkPermission();
 
         getPeerInitialData();
 
@@ -165,7 +168,7 @@ public class PingActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        if (checkPermission())
+        if (isPermission_boolean)
             mMap.setMyLocationEnabled(true);
     }
 
@@ -181,7 +184,7 @@ public class PingActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     protected void createLocationRequest(){
-        if (checkPermission()){
+        if (isPermission_boolean){
             locationRequest = new LocationRequest();
             locationRequest = LocationRequest.create()
                     .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
@@ -195,7 +198,7 @@ public class PingActivity extends FragmentActivity implements OnMapReadyCallback
     protected void startLocationUpdates(){
 //        askForPermission(Manifest.permission.ACCESS_FINE_LOCATION, 11);
 //        askForPermission(Manifest.permission.ACCESS_FINE_LOCATION, 12);
-        if (checkPermission()){
+        if (isPermission_boolean){
             permission_boolean = true;
             currentLocation = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
             LocationServices.FusedLocationApi.requestLocationUpdates(googleApiClient, locationRequest,this);
@@ -209,7 +212,7 @@ public class PingActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     public void onConnected(Bundle connectionHint) {
-        if (checkPermission()){
+        if (isPermission_boolean){
             currentLocation = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
             LocationServices.FusedLocationApi.requestLocationUpdates(googleApiClient, locationRequest, this);
         }
@@ -262,7 +265,6 @@ public class PingActivity extends FragmentActivity implements OnMapReadyCallback
             Log.i("test", "Location services connection failed with code " + connectionResult.getErrorCode());
         }
     }
-
     public void push_acc_location(Location accLocation){
         Log.d("CALL ::", "push_acc_location");
         SharedPreferences preferences = getSharedPreferences("PREFS", MODE_PRIVATE);
@@ -322,53 +324,57 @@ public class PingActivity extends FragmentActivity implements OnMapReadyCallback
     public boolean checkPermission(){
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             if (ActivityCompat.shouldShowRequestPermissionRationale(PingActivity.this, Manifest.permission.ACCESS_FINE_LOCATION)) {
+                Log.d("PERM", "1");
                 ActivityCompat.requestPermissions(PingActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 11);
                 return false;
             } else {
+                Log.d("PERM", "2");
                 ActivityCompat.requestPermissions(PingActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 11);
                 return false;
             }
-        }else
-            return true;
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults){
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if(ActivityCompat.checkSelfPermission(this, permissions[0]) == PackageManager.PERMISSION_GRANTED){
-            switch (requestCode) {
-                /**
-                 * last location perm
-                 */
-                case 11:{
-                    permission_boolean = true;
-                    currentLocation = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
-                    LocationServices.FusedLocationApi.requestLocationUpdates(googleApiClient, locationRequest,this);
-                    Toast.makeText(this, "Permission granted", Toast.LENGTH_SHORT).show();
-                    break;
-                }
-                /**
-                 * location updates perm
-                 */
-                case 12 : {
-                    permission_boolean = true;
-                    LocationServices.FusedLocationApi.requestLocationUpdates(googleApiClient, locationRequest,this);
-                    break;
-                }
-                /**
-                 * location layer enabled perm
-                 */
-                case 10 : {
-                    Log.d("LAYER", "");
-                    permission_boolean = true;
-                    mMap.setMyLocationEnabled(true);
-                    break;
-                }
-            }
         }else{
-            Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show();
+            isPermission_boolean = true;
+            return true;
         }
     }
+
+//    @Override
+//    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults){
+//        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+//        if(ActivityCompat.checkSelfPermission(this, permissions[0]) == PackageManager.PERMISSION_GRANTED){
+//            switch (requestCode) {
+//                /**
+//                 * last location perm
+//                 */
+//                case 11:{
+//                    permission_boolean = true;
+//                    currentLocation = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
+//                    LocationServices.FusedLocationApi.requestLocationUpdates(googleApiClient, locationRequest,this);
+//                    Toast.makeText(this, "Permission granted", Toast.LENGTH_SHORT).show();
+//                    break;
+//                }
+//                /**
+//                 * location updates perm
+//                 */
+//                case 12 : {
+//                    permission_boolean = true;
+//                    LocationServices.FusedLocationApi.requestLocationUpdates(googleApiClient, locationRequest,this);
+//                    break;
+//                }
+//                /**
+//                 * location layer enabled perm
+//                 */
+//                case 10 : {
+//                    Log.d("LAYER", "");
+//                    permission_boolean = true;
+//                    mMap.setMyLocationEnabled(true);
+//                    break;
+//                }
+//            }
+//        }else{
+//            Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show();
+//        }
+//    }
 
     public void gps(GoogleApiClient googleApiClient, LocationRequest locationRequest){
         Log.d("GPS", "\n\n");

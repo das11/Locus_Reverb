@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.Service;
 import android.content.Intent;
 import android.content.IntentSender;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
@@ -24,8 +25,14 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.Date;
 
 
 /**
@@ -47,11 +54,15 @@ public class testService extends Service implements
 
 
     boolean chk = false;
+    boolean pref_boolean = false;
+    boolean buildAPI_bool = false;
+
+    long poly_count = 0;
+
+    String uid;
 
     DatabaseReference dbref = FirebaseDatabase.getInstance().getReference();
     DatabaseReference ref = dbref.child("test/test_");
-
-
 
     @Override
     public void onCreate() {
@@ -80,22 +91,25 @@ public class testService extends Service implements
         if (chk = checkperm()){
             mLocationRequest = LocationRequest.create()
                     .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
-                    .setInterval(10 * 1000)        // 10 seconds, in milliseconds
-                    .setFastestInterval(5 * 1000); // 1 second, in milliseconds
+                    .setInterval(60 * 1000)        // 10 seconds, in milliseconds
+                    .setFastestInterval(30 * 1000); // 5 second, in milliseconds
         }else{
             ActivityCompat.requestPermissions((Activity) getApplicationContext(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 12);
             if (checkperm()){
                 mLocationRequest = LocationRequest.create()
                         .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
-                        .setInterval(10 * 1000)        // 10 seconds, in milliseconds
-                        .setFastestInterval(5 * 1000); // 4 seconds, in milliseconds
+                        .setInterval(60 * 1000)        // 10 seconds, in milliseconds
+                        .setFastestInterval(30 * 1000); // 5 seconds, in milliseconds
             }
         }
+
+        buildAPI_bool = true;
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Toast.makeText(this, "onStartCommand", Toast.LENGTH_SHORT).show();
+        getPrefs();
 
         // call a new service handler. The service ID can be used to identify the service
         Message message = mServiceHandler.obtainMessage();
@@ -153,6 +167,7 @@ public class testService extends Service implements
             @Override
             public void run() {
                 // run this code in the main thread
+                pushToFirebase(location.getLatitude(), location.getLongitude());
                 Log.d("location", location + "");
             }
         });
@@ -172,8 +187,6 @@ public class testService extends Service implements
         }
     }
 
-
-
     private final class ServiceHandler extends Handler {
 
         public ServiceHandler(Looper looper) {
@@ -184,16 +197,16 @@ public class testService extends Service implements
         public void handleMessage(Message msg) {
             // Well calling mServiceHandler.sendMessage(message); from onStartCommand,
             // this method will be called.
-
-
             boolean run = true;
             int i = 0;
 
             // cpu-blocking activity here
             try {
                 while (run) {
-                    Thread.sleep(5000);
-                    buildAPI();
+                    Thread.sleep(30 * 1000);
+                    if (!buildAPI_bool){
+                        buildAPI();
+                    }
                     mGoogleApiClient.connect();
 
                     Log.d("Doing ", i + "");
@@ -219,6 +232,49 @@ public class testService extends Service implements
         }else{
             return true;
         }
+    }
+
+    public void getPrefs(){
+        SharedPreferences preferences = getSharedPreferences("PREFS", MODE_PRIVATE);
+        uid = preferences.getString("uid", "");
+    }
+
+    public void pushToFirebase(double lat, double longi){
+        Date today = new Date();
+        int date_pos = getposition_from_time(today);
+        Log.d("date", date_pos + "");
+
+        final LatLng latLng = new LatLng(lat, longi);
+
+        DatabaseReference ROOT = FirebaseDatabase.getInstance().getReference();
+        final DatabaseReference user_node_current = ROOT.child(uid + "/data/" + date_pos + "/polyline");
+        Log.d("user_node", user_node_current + "");
+
+//        user_node_current.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                poly_count = dataSnapshot.getChildrenCount();
+//                ++poly_count;
+//                DatabaseReference polylist = user_node_current.child(poly_count + "");
+//                polylist.setValue(latLng);
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        });
+
+        user_node_current.push().setValue(latLng);
+    }
+
+    public int getposition_from_time(Date date){
+
+        int pos = 0;
+        for (long i = 1451586600000L; i < date.getTime(); i += 86400000){
+            ++pos;
+        }
+        return pos;
     }
 
 }

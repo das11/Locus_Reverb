@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,6 +14,14 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -22,8 +31,9 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
-public class Timeline extends AppCompatActivity {
+public class Timeline extends AppCompatActivity implements OnMapReadyCallback {
 
     RecyclerView timeline;
     List<timeline_day_data> data = new ArrayList<>();
@@ -45,7 +55,14 @@ public class Timeline extends AppCompatActivity {
     DatabaseReference ffurl, ffurl_it, ffurl_points, uid, uid_points;
     DatabaseReference ROOT = FirebaseDatabase.getInstance().getReference();
 
-    String tempFire;
+    String tempFire, polyFire;
+
+    GoogleMap googleMap;
+
+    boolean flip = false;
+    Double lat, longi;
+    LatLng latLngtemp;
+    PolylineOptions p = new PolylineOptions();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +70,9 @@ public class Timeline extends AppCompatActivity {
         setContentView(R.layout.activity_timeline);
 
         Toolbar toolbar_bottomsheet = (Toolbar)findViewById(R.id.view6);
+
+        SupportMapFragment supportMapFragment = (SupportMapFragment)getSupportFragmentManager().findFragmentById(R.id.mapTimeline);
+        supportMapFragment.getMapAsync(this);
 
         CoordinatorLayout coordinatorLayout = (CoordinatorLayout) findViewById(R.id.activity_timeline);
         // The View with the BottomSheetBehavior
@@ -69,7 +89,6 @@ public class Timeline extends AppCompatActivity {
                     //fab.setVisibility(View.VISIBLE);
                 }
             }
-
             @Override
             public void onSlide(@NonNull View bottomSheet, float slideOffset) {
                 // React to dragging events
@@ -85,8 +104,6 @@ public class Timeline extends AppCompatActivity {
 
         SharedPreferences pref = getSharedPreferences("PREFS", MODE_PRIVATE);
         user = pref.getString("uid", "");
-
-//        String furl = "https://wifiap-1361.firebaseio.com/" + user_number + "/data/" + day;
 
         switch (cat){
             case 1 : {
@@ -104,10 +121,15 @@ public class Timeline extends AppCompatActivity {
                 break;
             }
             case 3 : {
+                tempFire = user + "/data/" + day + "/points_data/family";
+                uid = ROOT.child(user + "/data/" + day + "/points_data/family");
+                uid_points = ROOT.child(user + "/data/" + day + "/points_family");
 //                furl_it = furl + /"/points_data/all/";
                 break;
             }
         }
+
+        fetchPoly();
 
         longLog(uid_points + "");
         uid_points.addValueEventListener(new ValueEventListener() {
@@ -162,7 +184,6 @@ public class Timeline extends AppCompatActivity {
                         lat = "21";
                         longi = "91";
                     }else {
-
                         lat = dataSnapshot.child("location").child("latitude").getValue().toString();
                         longi = dataSnapshot.child("location").child("longitude").getValue().toString();
                     }
@@ -217,5 +238,95 @@ public class Timeline extends AppCompatActivity {
             done = true;
 
         }
+    }
+
+    public void fetchPoly(){
+
+        final DatabaseReference poly = ROOT.child(user + "/data/" + day + "/polyline");
+        Log.d("poly", poly + "");
+        String temp = poly.getKey();
+        Log.d("TEMP", temp + "");
+
+        final List<LatLng> polyList = new ArrayList<>();
+
+
+        poly.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds : dataSnapshot.getChildren()){
+                    @SuppressWarnings("unchecked")
+                    Map<String, Map<String, Double>> value = (Map<String, Map<String, Double>>)dataSnapshot.getValue();
+
+                    for (Map.Entry<String, Map<String, Double>> l1 : value.entrySet()){
+                        for (Map.Entry<String, Double> temp : l1.getValue().entrySet()){
+                            Log.d("temp \n", temp + "");
+                            if (!flip) {
+                                lat = temp.getValue();
+                                Log.d("LAT", String.valueOf(lat) + "");
+                                flip = true;
+                            }else {
+                                longi = temp.getValue();
+                            }
+
+
+                        }
+
+                        latLngtemp = new LatLng(lat, longi);
+                        Log.d("LTN itera", "\n\n" + latLngtemp);
+
+                        p.add(latLngtemp);
+                        p.width(8);
+                        p.visible(true);
+                        googleMap.addPolyline(p);
+
+                        movecamera(latLngtemp);
+
+                        polyList.add(new LatLng(lat,longi));
+                        flip = false;
+                        Log.d("\n\n", "\n\n");
+                    }
+                    Log.d("MAP", value + "\n");
+                    Log.d("LIST", polyList + "");
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+    public void drawPoly(List<LatLng> list){
+        googleMap.addPolyline(new PolylineOptions().addAll(list).color(ContextCompat.getColor(getApplicationContext(),R.color.some_accent)));
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        this.googleMap = googleMap;
+
+    }
+
+    public void movecamera(LatLng latlong){
+        Log.d("move","");
+        CameraPosition cameraPosition = new CameraPosition.Builder()
+                .target(latlong)
+                .tilt(60)
+                .zoom(16)
+                .build();
+
+
+//        PolylineOptions p = new PolylineOptions();
+//        p.add(new LatLng(26.1857749,91.7538019));
+//        p.add(new LatLng(26.1858131,91.7534262));
+//        p.add(new LatLng(26.1857986,91.7537651));
+//        p.width(8);
+//        p.visible(true);
+//
+//        googleMap.addPolyline(p);
+
+        googleMap.addMarker(new MarkerOptions().position(latlong));
+        googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition), 2000, null);
     }
 }
