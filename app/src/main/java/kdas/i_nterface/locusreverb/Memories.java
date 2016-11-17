@@ -48,7 +48,7 @@ public class Memories extends AppCompatActivity {
                 case 1 :
                     return Frag_professional.newInstance("", "");
                 case 2 :
-                    return Frag_professional.newInstance("","");
+                    return Frag_family.newInstance("","");
                 default  :
                     return null;
             }

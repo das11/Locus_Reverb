@@ -21,6 +21,8 @@
     <color name="orange">#FF9800</color>
     <color name="light_green">#8BC34A</color>
 
+    <color name="marker">#20b28a</color>
+
     <color name="colorPrimary2">#3F51B5</color>
     <color name="colorPrimaryDark2">#03A9F4</color>
     <color name="colorAccent2">#039BE5</color>

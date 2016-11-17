@@ -2,9 +2,15 @@ package kdas.i_nterface.locusreverb;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.Notification;
+import android.content.Intent;
 import android.content.IntentSender;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LevelListDrawable;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -32,8 +38,10 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.firebase.database.DataSnapshot;
@@ -46,8 +54,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
+
+import br.com.goncalves.pugnotification.notification.PugNotification;
 
 public class PingActivity extends FragmentActivity implements OnMapReadyCallback,
                                                                 GoogleApiClient.ConnectionCallbacks,
@@ -61,10 +72,11 @@ public class PingActivity extends FragmentActivity implements OnMapReadyCallback
     protected Location currentLocation, acc_location;
     boolean permission_boolean = false;
     boolean acc_location_bool_fetch_once = false;
-    boolean peer_fetch_location_bool = false;
+    boolean  peer_fetch_location_bool = false;
     boolean build_query_bool = false;
     boolean camera_move_initial_bool = false;
     boolean isPermission_boolean = false;
+    boolean MET = false;
 
     DatabaseReference ROOT = FirebaseDatabase.getInstance().getReference();
     Location peer_location = new Location("");
@@ -137,10 +149,6 @@ public class PingActivity extends FragmentActivity implements OnMapReadyCallback
                     build_query_bool = false;
                     Log.d("peer", "_fetch_location_bool " + peer_fetch_location_bool + "\n\n");
                 }
-
-//                if (acc_location_bool_fetch_once)
-//                    Dir_Query = build_query(acc_location, peer_location);
-//                Log.d("query", Dir_Query + "\n\n");
             }
 
             @Override
@@ -195,21 +203,6 @@ public class PingActivity extends FragmentActivity implements OnMapReadyCallback
         }
     }
 
-    protected void startLocationUpdates(){
-//        askForPermission(Manifest.permission.ACCESS_FINE_LOCATION, 11);
-//        askForPermission(Manifest.permission.ACCESS_FINE_LOCATION, 12);
-        if (isPermission_boolean){
-            permission_boolean = true;
-            currentLocation = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
-            LocationServices.FusedLocationApi.requestLocationUpdates(googleApiClient, locationRequest,this);
-            Log.d("Started ", "\n\n\n");
-        }
-    }
-    protected void stopLocationUpdates(){
-        LocationServices.FusedLocationApi.removeLocationUpdates(googleApiClient, this);
-        googleApiClient.disconnect();
-    }
-
     @Override
     public void onConnected(Bundle connectionHint) {
         if (isPermission_boolean){
@@ -227,6 +220,8 @@ public class PingActivity extends FragmentActivity implements OnMapReadyCallback
         currentLocation = location;
         Log.d("Location ", location + "\n");
 
+
+        /** waiting for accurate location and pushing to firebase */
         float accuracy = currentLocation.getAccuracy();
         if (accuracy < 20 && !acc_location_bool_fetch_once){
             acc_location = currentLocation;
@@ -235,12 +230,18 @@ public class PingActivity extends FragmentActivity implements OnMapReadyCallback
             Log.d("ACC LOCATION", acc_location + "");
         }
 
+        checkIfMet(currentLocation, peer_location);
+
+        /** building direction query and requesting IFF self and peer locations are fetched */
         if (acc_location_bool_fetch_once && peer_fetch_location_bool && !build_query_bool){
             Log.d("DIR QUERY", "\n\n");
-            Dir_Query = build_query(currentLocation, peer_location);
+            Dir_Query = build_query(acc_location, peer_location);
+            Log.d("DISTANCE", CalculationByDistance(acc_location, peer_location) + "\n\n");
             build_query_bool = true;
             new getDirection().execute("");
         }
+
+        /** one time camera pan */
         if (!camera_move_initial_bool){
             movecamera(currentLocation);
         }
@@ -376,6 +377,44 @@ public class PingActivity extends FragmentActivity implements OnMapReadyCallback
 //        }
 //    }
 
+    public void checkIfMet(Location currentLocation, Location peer_location){
+        double curve = CalculationByDistance(currentLocation, peer_location);
+        Log.d("CURVE", curve + "");
+
+        if (curve < .08){
+            MET = true;
+        }
+
+        if (MET && curve > .1){
+            //DO STUFF
+            run_pug();
+        }
+    }
+
+    public double CalculationByDistance(Location StartP, Location EndP) {
+
+        int Radius=6371;//radius of earth Km
+        double lat1 = StartP.getLatitude();
+        double lat2 = EndP.getLatitude();
+        double lon1 = StartP.getLongitude();
+        double lon2 = EndP.getLongitude();
+        double dLat = Math.toRadians(lat2-lat1);
+        double dLon = Math.toRadians(lon2-lon1);
+        double a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+                Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2)) *
+                        Math.sin(dLon/2) * Math.sin(dLon/2);
+        double c = 2 * Math.asin(Math.sqrt(a));
+        double valueResult= Radius*c;
+        double km=valueResult/1;
+        DecimalFormat newFormat = new DecimalFormat("####");
+        int kmInDec =  Integer.valueOf(newFormat.format(km));
+        double meter=valueResult%1000;
+        int  meterInDec= Integer.valueOf(newFormat.format(meter));
+        Log.i("Radius Value",""+valueResult+"   KM  "+kmInDec+" Meter   "+meterInDec);
+
+        return Radius * c;
+    }
+
     public void gps(GoogleApiClient googleApiClient, LocationRequest locationRequest){
         Log.d("GPS", "\n\n");
         LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder()
@@ -474,7 +513,17 @@ public class PingActivity extends FragmentActivity implements OnMapReadyCallback
 
                         polyline_list = decodePoly(poly_String);
 
+                        LatLng start, end;
+                        start = polyline_list.get(0);
+                        end = polyline_list.get(polyline_list.size() - 1);
+
+                        Bitmap marker = getBMP();
+
+                        mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromBitmap(marker)).position(start));
+                        mMap.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromBitmap(marker)).position(end));
+
                         polyline = mMap.addPolyline(new PolylineOptions().addAll(polyline_list).color(ContextCompat.getColor(getApplicationContext(),R.color.some_accent)));
+
                         loader.smoothToHide();
                         loading.setVisibility(View.GONE);
                         Log.d("\n\n::::::: ADDED :::::::", "POLY");
@@ -493,6 +542,16 @@ public class PingActivity extends FragmentActivity implements OnMapReadyCallback
                 //TOAST
             }
         }
+    }
+
+    public Bitmap getBMP(){
+
+        BitmapDrawable bitmapDrawable = (BitmapDrawable)ContextCompat.getDrawable(getApplicationContext(), R.drawable.marker);
+        Bitmap bitmap = bitmapDrawable.getBitmap();
+        Bitmap marker = Bitmap.createScaledBitmap(bitmap, 70, 70, false);
+
+        return marker;
+
     }
 
     private List<LatLng> decodePoly(String encoded) {
@@ -541,5 +600,20 @@ public class PingActivity extends FragmentActivity implements OnMapReadyCallback
 
         mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition), 2000, null);
         camera_move_initial_bool = true;
+    }
+
+    public void run_pug(){
+        PugNotification.with(getApplicationContext())
+                .load()
+                .title("Hey !")
+                .message("You just met someone, Click!")
+                .bigTextStyle("You just met someone, spare a moment buddy!")
+                .smallIcon(R.drawable.notif_small)
+                .largeIcon(R.drawable.notif_large)
+                .flags(Notification.DEFAULT_ALL)
+//                .click(null)
+//                .dismiss(null)
+                .simple()
+                .build();
     }
 }

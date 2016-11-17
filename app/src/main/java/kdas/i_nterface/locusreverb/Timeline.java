@@ -20,7 +20,6 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -62,7 +61,7 @@ public class Timeline extends AppCompatActivity implements OnMapReadyCallback {
     boolean flip = false;
     Double lat, longi;
     LatLng latLngtemp;
-    PolylineOptions p = new PolylineOptions();
+    PolylineOptions polylineOptions = new PolylineOptions();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -208,6 +207,7 @@ public class Timeline extends AppCompatActivity implements OnMapReadyCallback {
                      *
                      *
                      * point_list has data :: check-in count, starttime, endtime, notes
+                     *                          0               1           2       3
                      *
                      * location has well :: point locations
                      *
@@ -273,11 +273,12 @@ public class Timeline extends AppCompatActivity implements OnMapReadyCallback {
 
                         latLngtemp = new LatLng(lat, longi);
                         Log.d("LTN itera", "\n\n" + latLngtemp);
+                        drawPoly(latLngtemp);
 
-                        p.add(latLngtemp);
-                        p.width(8);
-                        p.visible(true);
-                        googleMap.addPolyline(p);
+//                        polylineOptions.add(latLngtemp);
+//                        polylineOptions.width(8);
+//                        polylineOptions.visible(true);
+//                        googleMap.addPolyline(polylineOptions);
 
                         movecamera(latLngtemp);
 
@@ -298,8 +299,14 @@ public class Timeline extends AppCompatActivity implements OnMapReadyCallback {
 
     }
 
-    public void drawPoly(List<LatLng> list){
-        googleMap.addPolyline(new PolylineOptions().addAll(list).color(ContextCompat.getColor(getApplicationContext(),R.color.some_accent)));
+    public void drawPoly(LatLng latLng){
+//        googleMap.addPolyline(new PolylineOptions().addAll(list).color(ContextCompat.getColor(getApplicationContext(),R.color.some_accent)));
+
+        polylineOptions.add(latLng);
+        polylineOptions.width(5);
+        polylineOptions.visible(true);
+        polylineOptions.color(ContextCompat.getColor(getApplicationContext(),R.color.some_accent));
+        googleMap.addPolyline(polylineOptions);
     }
 
     @Override
@@ -312,21 +319,9 @@ public class Timeline extends AppCompatActivity implements OnMapReadyCallback {
         Log.d("move","");
         CameraPosition cameraPosition = new CameraPosition.Builder()
                 .target(latlong)
-                .tilt(60)
+//                .tilt(60)
                 .zoom(16)
                 .build();
-
-
-//        PolylineOptions p = new PolylineOptions();
-//        p.add(new LatLng(26.1857749,91.7538019));
-//        p.add(new LatLng(26.1858131,91.7534262));
-//        p.add(new LatLng(26.1857986,91.7537651));
-//        p.width(8);
-//        p.visible(true);
-//
-//        googleMap.addPolyline(p);
-
-        googleMap.addMarker(new MarkerOptions().position(latlong));
         googleMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition), 2000, null);
     }
 }

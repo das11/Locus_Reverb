@@ -178,7 +178,7 @@ public class rv_event_adapter_family extends RecyclerView.Adapter<rv_event_adapt
 //        furl = "https://wifiap-1361.firebaseio.com/" + uid + "/data/" + note_pos;
 //        Log.d("furl_note", furl);
 
-        note = ROOT.child(uid + "/data/" + note_pos + "/points_data/professional");
+        note = ROOT.child(uid + "/data/" + note_pos + "/points_data/family");
         Log.d(note + "", "");
         note.addValueEventListener(new ValueEventListener() {
             @Override
