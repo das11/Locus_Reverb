@@ -137,18 +137,21 @@ public class PingActivity extends FragmentActivity implements OnMapReadyCallback
         peer_locationF.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                double lat = dataSnapshot.child("latitude").getValue(double.class);
-                double longi = dataSnapshot.child("longitude").getValue(double.class);
+                if (dataSnapshot.getChildrenCount() > 2) {
+                    double lat = dataSnapshot.child("latitude").getValue(double.class);
+                    double longi = dataSnapshot.child("longitude").getValue(double.class);
 
-                Log.d("Peer LATLNG ", lat + "\n" + longi);
-                peer_location.setLatitude(lat);
-                peer_location.setLongitude(longi);
+                    Log.d("Peer LATLNG ", lat + "\n" + longi);
+                    peer_location.setLatitude(lat);
+                    peer_location.setLongitude(longi);
 
-                if (!peer_fetch_location_bool){
-                    peer_fetch_location_bool = true;
-                    build_query_bool = false;
-                    Log.d("peer", "_fetch_location_bool " + peer_fetch_location_bool + "\n\n");
-                }
+                    if (!peer_fetch_location_bool) {
+                        peer_fetch_location_bool = true;
+                        build_query_bool = false;
+                        Log.d("peer", "_fetch_location_bool " + peer_fetch_location_bool + "\n\n");
+                    }
+                }else
+                    Toast.makeText(getApplicationContext(), "Into the night", Toast.LENGTH_LONG).show();
             }
 
             @Override
