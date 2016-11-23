@@ -32,10 +32,11 @@ import is.arontibo.library.ElasticDownloadView;
 public class Init extends AppCompatActivity {
 
     String uid;
+    String email, pass, contact;
 
     DatabaseReference ROOT;
 
-    EditText initEmail, initPass;
+    EditText initEmail, initPass, initContact;
     FloatingActionButton done, backhome;
     CardView card, cv;
     RelativeLayout background;
@@ -60,6 +61,7 @@ public class Init extends AppCompatActivity {
         card = (CardView)findViewById(R.id.init_card);
         initEmail = (EditText)findViewById(R.id.email);
         initPass = (EditText)findViewById(R.id.password);
+        initContact = (EditText)findViewById(R.id.contact);
         done = (FloatingActionButton) findViewById(R.id.signup);
         backhome = (FloatingActionButton)findViewById(R.id.floatingActionButton);
         no = (ImageView)findViewById(R.id.imageView9);
@@ -84,11 +86,11 @@ public class Init extends AppCompatActivity {
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String email, pass;
+
 
                 email = initEmail.getText().toString().trim();
                 pass = initPass.getText().toString().trim();
-
+                contact = initContact.getText().toString().trim();
 
 
                 if (user_ase){
@@ -183,7 +185,7 @@ public class Init extends AppCompatActivity {
         notif.setValue("null");
         pinged.setValue("null");
         pinged_by.setValue("null");
-        contact_num.setValue(0);
+        contact_num.setValue(contact);
 
         DatabaseReference days;
         for(int i = 1; i < 366; ++i){
