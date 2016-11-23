@@ -307,7 +307,7 @@ public class InitialScreen extends AppCompatActivity implements View.OnClickList
             }
 
             case R.id.location_btn : {
-                startActivity(new Intent(InitialScreen.this, ActiveTracking_temp.class));
+                startActivity(new Intent(InitialScreen.this, MyGlobe.class));
                 Snackbar.make(view, "not migrated yet, bro", Snackbar.LENGTH_LONG).show();
                 break;
             }
