@@ -26,6 +26,14 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+
+
+
+
+
+
+    compile 'com.mikhaellopez:circularimageview:3.0.2'
+
     compile 'com.google.android.gms:play-services:9.6.1'
     compile 'com.andkulikov:transitionseverywhere:1.6.9'
     compile 'com.mikhaellopez:circularimageview:3.0.2'
@@ -44,12 +52,14 @@ dependencies {
     compile 'com.wang.avi:library:2.1.3'
     compile 'com.ogaclejapan.arclayout:library:1.1.0@aar'
     compile 'com.mikhaellopez:circularimageview:3.0.2'
-    compile 'com.android.support:multidex:1.0.0'
+    compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha9'
+    compile 'com.android.support:multidex:1.0.1'
     compile 'com.android.support:support-v4:24.2.1'
     compile 'com.android.support:recyclerview-v7:24.2.1'
-    testCompile 'junit:junit:4.12'
     compile 'com.google.android.gms:play-services-maps:9.6.1'
+    testCompile 'junit:junit:4.12'
 }
+
 
 
 

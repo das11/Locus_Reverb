@@ -190,10 +190,7 @@ public class MyGlobe extends FragmentActivity implements OnMapReadyCallback, Act
 
     private void getFriendsGlobe(Location location) {
 
-
         friends = ROOT.child("friends");
-
-
         friends.addValueEventListener(new ValueEventListener() {
             @Override
 
@@ -210,11 +207,9 @@ public class MyGlobe extends FragmentActivity implements OnMapReadyCallback, Act
             public void onCancelled(DatabaseError databaseError) {
 
             }
-
-
         });
 
-        for (int j = 0; j <len; ++j) {
+        for (int j = 0; j < len; ++j) {
             LatLng abc = new LatLng(lats.get(j), longs.get(j));
             MarkerOptions temp = new MarkerOptions().position(abc)
                     .title(friends_list.get(j))
@@ -232,7 +227,6 @@ public class MyGlobe extends FragmentActivity implements OnMapReadyCallback, Act
 
     public void parseMap(Map<String, String> map){
         for (Map.Entry<String, String> entry : map.entrySet()) {
-
             String uid_value, uid_name;
             uid_value = entry.getKey();
             uid_name = entry.getValue();// can use for something
@@ -283,6 +277,8 @@ public class MyGlobe extends FragmentActivity implements OnMapReadyCallback, Act
             });
 
         }
+
+
     }
 
 

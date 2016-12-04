@@ -58,7 +58,13 @@
             android:label="@string/title_activity_ping" />
         <activity android:name=".Note" />
         <activity android:name=".ActiveTracking_temp" />
+<<<<<<< HEAD
         <activity android:name=".MyGlobe"></activity>
+=======
+        <activity
+            android:name=".test"
+            android:label="@string/title_activity_test"></activity>
+>>>>>>> dev
     </application>
 
 </manifest>

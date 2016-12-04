@@ -88,6 +88,5 @@ public class PeersActiviy extends AppCompatActivity {
 
             Log.d("log", uid_value + " " + uid_name);
         }
-
     }
 }

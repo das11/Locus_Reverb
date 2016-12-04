@@ -8,4 +8,5 @@
 
     <string name="test">Test \ntest it was well and well, and hence it went quite well. test \ntest it was well and well, and hence it went quite well. test \ntest it was well and well, and hence it went quite well.test \ntest it was well and well, and hence it went quite well. test \ntest it was well and well, and hence it went quite well.</string>
     <string name="title_activity_ping">Map</string>
+    <string name="title_activity_test">Map</string>
 </resources>
